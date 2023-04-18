@@ -29,7 +29,7 @@ namespace Thrift_E.Controllers
             var query = from c in _context.Categorys
                         join p in _context.Products on c.CategoryId equals p.CategoryId
                         join m in _context.MeasuresOfScales on p.MeasureOfScaleId equals m.MeasureOfScaleId
-                        join i in _context.Images on p.ProductId equals i.ProductId
+                        join i in _context.Images on p.ProductId equals i.ProductId 
                         select new
                         {
                             CategoryName = c.CategoryName,
@@ -90,7 +90,8 @@ namespace Thrift_E.Controllers
                             InstockQty = p.InstockQty,
                             MeasureOfScale = m.MeasureOfScale,
                             NewOrUsed = p.NewOrUsed,
-                            Image = i.Image1
+                            Image = i.Image1,
+                            Date = p.SignupDate
                         };
             return View(query.FirstOrDefault());
 
