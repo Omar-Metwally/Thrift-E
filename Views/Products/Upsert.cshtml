@@ -1,0 +1,51 @@
+﻿@model Product
+
+<h2>Add New Product</h2>
+
+<form asp-action="Upsert">
+    <input type="hidden" asp-for="ProductId" />
+    <div class="form-group">
+        <label asp-for="ProductName" class="control-label"></label>
+        <input asp-for="ProductName" class="form-control" />
+        <span asp-validation-for="ProductName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="InstockQty" class="control-label"></label>
+        <input asp-for="InstockQty" class="form-control" />
+        <span asp-validation-for="InstockQty" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Price" class="control-label"></label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="NewOrUsed" class="control-label"></label>
+        <select asp-for="NewOrUsed" class="form-control">
+            <option value="">Select</option>
+            <option value="True">Yes</option>
+            <option value="False">No</option>
+        </select>
+        <span asp-validation-for="NewOrUsed" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="CategoryId" class="control-label"></label>
+        <select asp-for="CategoryId" class="form-control" asp-items="@ViewBag.Categories"></select>
+        <span asp-validation-for="CategoryId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="MeasureOfScaleId" class="control-label"></label>
+        <select asp-for="MeasureOfScaleId" class="form-control" asp-items="@ViewBag.MeasureOfScales"></select>
+        <span asp-validation-for="MeasureOfScaleId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
