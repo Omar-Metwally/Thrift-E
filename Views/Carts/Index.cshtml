@@ -1,4 +1,4 @@
-﻿@model List<dynamic>
+﻿@model List<CartViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,11 +13,11 @@
             <tr>
                 <th>Product Name</th>
                 <th>Category Name</th>
-                <th>Price</th>
                 <th>Total</th>
                 <th>Quantity</th>
                 <th>Measure Of Scale</th>
                 <th>NewOrUsed</th>
+                <th>Image</th>
 
             </tr>
         </thead>
@@ -28,12 +28,11 @@
                     <td>@item.ProductName</td>
                     <td>@item.CategoryName</td>
                     <td>@item.Price</td>
-                    <td>@(item.Qty * Int32.Parse(@item.Price))</td>
                     <td>
-                    <input type="hidden" name="cartItems[@item.CartId].CartId" value="@item.CartId" />
-                    <input type="number" name="cartItems[@item.CartId].Qty" value="@item.Qty" />
+                        <input type="hidden" name="cartItems[@item.CustomerId].CartId" value="@item.CustomerId" />
+                        <input type="number" name="cartItems[@item.CustomerId].Qty" value="@item.Qty" />
                     </td>
-                    <td>@item.MeasureOfScale</td>
+                    <td>@item.MeasureOfScaleName</td>
                     <td>
                         @if (item.NewOrUsed)
                         {
@@ -44,6 +43,7 @@
                             <span class="badge bg-danger">No</span>
                         }
                     </td>
+                    <td><img width="50" height="50" src="@item.Image1" alt=""></td>
                     <td>
                         <a asp-action="Upsert" asp-route-id="@item.ProductId">Edit</a> |
                         <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
