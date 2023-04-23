@@ -163,53 +163,6 @@ namespace Thrift_E.Controllers
                 });
 
             return View(products.First(p => p.ProductId == id));
-            /*var query = from c in _context.Categorys
-                        join p in _context.Products on c.CategoryId equals p.CategoryId where p.ProductId == id
-                        join m in _context.MeasuresOfScales on p.MeasureOfScaleId equals m.MeasureOfScaleId where p.ProductId == id
-                        join i in _context.Images on p.ProductId equals i.ProductId  where p.ProductId == id
-                        select new
-                        {
-                            CategoryName = c.CategoryName,
-                            ProductName = p.ProductName,
-                            ProductId = p.ProductId,
-                            Price = p.Price,
-                            Instock = p.Instock,
-                            InstockQty = p.InstockQty,
-                            MeasureOfScale = m.MeasureOfScale,
-                            NewOrUsed = p.NewOrUsed,
-                            Date = p.SignupDate
-                        };
-            var stringBuilder = new StringBuilder();
-
-            var sd = _context.Images.FirstOrDefault(x => x.ProductId == id && x.ImageId == 1);
-            productViewModel.Image1 = sd.Image1;
-
-            sd = _context.Images.FirstOrDefault(x => x.ProductId == id && x.ImageId == 2);
-            productViewModel.Image2 = sd.Image1;
-
-            sd = _context.Images.FirstOrDefault(x => x.ProductId == id && x.ImageId == 3);
-            productViewModel.Image3 = sd.Image1;
-
-            sd = _context.Images.FirstOrDefault(x => x.ProductId == id && x.ImageId == 4);
-            productViewModel.Image4 = sd.Image1;
-
-            var final = query.Select(p => new ProductViewModel
-           {
-               ProductId = p.ProductId,
-               CategoryName = p.CategoryName,
-               ProductName = p.ProductName,
-               Price = p.Price,
-               InstockQty = p.InstockQty,
-               MeasureOfScale = p.MeasureOfScale,
-               NewOrUsed = p.NewOrUsed,
-               SignupDate = p.Date,
-               Image1 = productViewModel.Image1,
-               Image2 = productViewModel.Image2,
-               Image3 = productViewModel.Image3,
-               Image4 = productViewModel.Image4,
-           });
-
-            return View(final.FirstOrDefault());*/
 
         }
     }
