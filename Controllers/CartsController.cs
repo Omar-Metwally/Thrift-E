@@ -22,21 +22,17 @@ namespace Thrift_E.Controllers
 
         public IActionResult Index()
         {
-
-            var products = _context.Carts.Include(c => c.Product).ThenInclude(p => p.Category).Include(x => x.Product.MeasureOfScale)
-
-    .Select(c => new CartViewModel
-    {
-        ProductId = c.ProductId,
-        ProductName = c.Product.ProductName,
-        Qty = c.Qty,
-        Price = (double)(c.Product.Price * c.Qty),
-        NewOrUsed = c.Product.NewOrUsed,
-        Image1 = c.Product.Image1,
-        CategoryName = c.Product.Category.CategoryName,
-        MeasureOfScaleName = c.Product.MeasureOfScale.MeasureOfScale
-    })
-    .ToList();
+            var products = _context.Carts.Include(c => c.Product).ThenInclude(p => p.Category).Include(x => x.Product.MeasureOfScale).Select(c => new CartViewModel
+            {
+                ProductId = c.ProductId,
+                ProductName = c.Product.ProductName,
+                Qty = c.Qty,
+                Price = (double)(c.Product.Price * c.Qty),
+                NewOrUsed = c.Product.NewOrUsed,
+                Image1 = c.Product.Image1,
+                CategoryName = c.Product.Category.CategoryName,
+                MeasureOfScaleName = c.Product.MeasureOfScale.MeasureOfScale
+            }).ToList();
 
             return View(products);
 
