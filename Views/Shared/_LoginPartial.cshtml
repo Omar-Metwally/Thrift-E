@@ -1,0 +1,29 @@
+﻿@if (User.Identity.IsAuthenticated){
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            @if (User.Identity.Name == "Admin")
+            {
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Actions
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" asp-area="" asp-controller="Customers" asp-action="Index">Customer</a></li>
+                    <li><a class="dropdown-item" asp-area="" asp-controller="Products" asp-action="Index">Product</a></li>
+                    <li><a class="dropdown-item" asp-area="" asp-controller="Carts" asp-action="Index">Cart</a></li>
+                </ul>
+            </li>
+            }
+            <li class="nav-item">
+                <form method="post" asp-page="/Account/Logout">
+                    Welcome @User.Identity.Name
+                    <button type="submit" class="btn btn-primary">Logout</button>
+                </form>
+            </li>
+        </ul>
+    </div>
+
+}
+else{
+    <a class=" btn btn-link" asp-page="/Account/Login">Login</a>
+}

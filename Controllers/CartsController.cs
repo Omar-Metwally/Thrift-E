@@ -1,6 +1,7 @@
 ﻿using Data_Layer;
 using Infrastructure_Layer;
 using Infrastructure_Layer.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis;
@@ -8,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Thrift_E.Controllers
 {
+    
     public class CartsController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -37,7 +39,7 @@ namespace Thrift_E.Controllers
             return View(products);
 
         }
-
+        [Authorize(policy: "MustBeAdmin")]
         public IActionResult Delete(int? id)
         {
             _unitOfWork.Carts.Delete(id);
@@ -46,20 +48,26 @@ namespace Thrift_E.Controllers
         }
 
 
-        public IActionResult Upsert(int? id)
+        public IActionResult Upsert(int? Id,string Phone)
         {
-            ViewBag.Categories = new SelectList(_context.Categorys.ToList(), "CategoryId", "CategoryName");
-            ViewBag.MeasureOfScales = new SelectList(_context.MeasuresOfScales.ToList(), "MeasureOfScaleId", "MeasureOfScale");
-            if (id == null)
+            var person = _context.Customers.FirstOrDefault(x => x.Phone == Phone);
+            Cart cart =  new Cart();
+            cart.CustomerId = (int)person.CustomerId;
+            cart.ProductId = (int)Id;
+            cart.Qty = 1;
+            _context.Add(cart);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+
+            /*if (ProductId == null)
             {
-                return View();
+                return RedirectToAction(nameof(Index));
             }
             else
             {
-                var entity = _context.Carts.FirstOrDefault(x => x.ProductId == id && x.CustomerId == 1);
+                var entity = _context.Carts.FirstOrDefault(x => x.ProductId == ProductId && x.CustomerId == 1);
                 return View(entity);
-            }
-
+            }*/
         }
 
         [HttpPost]

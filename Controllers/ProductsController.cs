@@ -1,6 +1,7 @@
 ﻿using Data_Layer;
 using Infrastructure_Layer;
 using Infrastructure_Layer.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis;
@@ -9,6 +10,7 @@ using System.Linq;
 
 namespace Thrift_E.Controllers
 {
+
     public class ProductsController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -23,7 +25,7 @@ namespace Thrift_E.Controllers
             _context = context;
             _webHostEnvironment = webHostEnvironment;
         }
-
+        [Authorize(policy: "MustBeAdmin")]
         public IActionResult Index()
         {
 
@@ -50,7 +52,7 @@ namespace Thrift_E.Controllers
 
             return View(products);
         }
-
+        [Authorize(policy: "MustBeAdmin")]
         public IActionResult Delete(int? id)
         {
             Product product = _context.Products.FirstOrDefault(x => x.ProductId == id);
@@ -64,7 +66,7 @@ namespace Thrift_E.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-
+        [Authorize(policy: "MustBeAdmin")]
         public IActionResult Upsert(int? id)
         {
             ViewBag.Categories = new SelectList(_context.Categorys.ToList(), "CategoryId", "CategoryName");
@@ -75,7 +77,7 @@ namespace Thrift_E.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-
+        [Authorize(policy: "MustBeAdmin")]
         public IActionResult Upsert(int? id, Product product, IFormFile? file1, IFormFile? file2, IFormFile? file3, IFormFile? file4)
         {
             IFormFile[] files = { file1, file2, file3, file4 };

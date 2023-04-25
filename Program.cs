@@ -5,6 +5,7 @@ using Infrastructure_Layer.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,10 +18,30 @@ builder.Services.AddDbContext<MaindbContext>(options => options.UseMySql(builder
 
 builder.Services.AddTransient(typeof(IUnitOfWork), typeof(UnitOfWork));
 
+builder.Services.AddAuthentication("MyCookie").AddCookie("MyCookie", options => {
+    options.Cookie.Name = "MyCookie";
+    options.LoginPath = "/Account/Login"; });
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("MustBeAdmin",
+        policy => policy.RequireClaim("Admin", "1"));
+    options.AddPolicy("LogCustomer",
+        policy => policy.RequireClaim("Customer", "1"));
+});
+
+builder.Services.Configure<CookiePolicyOptions>(options =>
+{
+    options.CheckConsentNeeded = context => true;
+    options.MinimumSameSitePolicy = SameSiteMode.None;
+});
+
+builder.Services.AddRazorPages();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+if (!app.Environment.IsDevelopment())   
 {
     app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
@@ -31,8 +52,14 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
+
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapRazorPages();
+});
 
 app.MapControllerRoute(
     name: "default",

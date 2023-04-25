@@ -10,9 +10,11 @@ using Thrift_E;
 using Infrastructure_Layer.Models;
 using Infrastructure_Layer.Repository;
 using Infrastructure_Layer;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Thrift_E.Controllers
 {
+    [Authorize(policy: "MustBeAdmin")]
     public class CustomersController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
