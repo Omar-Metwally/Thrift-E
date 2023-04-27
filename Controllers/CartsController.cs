@@ -23,7 +23,10 @@ namespace Thrift_E.Controllers
 
         public IActionResult Index()
         {
-            var products = _context.Carts.Include(c => c.Product).ThenInclude(p => p.Category).Include(x => x.Product.MeasureOfScale).Select(c => new CartViewModel
+            string myCookieValue = HttpContext.Request.Cookies["MyCookie"];
+            var person = _context.Customers.FirstOrDefault(x => x.Cookie == myCookieValue);
+
+            var products = _context.Carts.Where(z => z.CustomerId == person.CustomerId).Include(c => c.Product).ThenInclude(p => p.Category).Include(x => x.Product.MeasureOfScale).Select(c => new CartViewModel
             {
                 CustomerId = c.CustomerId,
                 ProductId = c.ProductId,
@@ -89,9 +92,13 @@ namespace Thrift_E.Controllers
         {
             Cart cart = new Cart();
             cart = _context.Carts.FirstOrDefault(x => x.CustomerId == CustomerId && x.ProductId == ProductId);
-            cart.Qty += 1;
-            _context.Update(cart);
-            _context.SaveChanges();
+            Product product = _context.Products.FirstOrDefault(x => x.ProductId == ProductId);
+            if (cart.Qty < product.InstockQty)
+            {
+                cart.Qty += 1;
+                _context.Update(cart);
+                _context.SaveChanges();
+            }
             return RedirectToAction(nameof(Index));
         }
         [HttpPost]
