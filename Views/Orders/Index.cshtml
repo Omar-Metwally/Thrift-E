@@ -1,42 +1,27 @@
-﻿@model List<OrderViewModel>
+﻿@model List<Order>
+
 
 @{
     ViewData["Title"] = "Index";
 }
 
 <div class="container">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2>Products</h2>
-        <a class="btn btn-primary" href="@Url.Action("Upsert")">Create New</a>
-    </div>
     <table class="table table-striped table-hover">
         <thead class="thead-dark">
             <tr>
-                <th scope="col">Category Name</th>
-                <th scope="col">Product Name</th>
-                <th scope="col">Price</th>
-                <th scope="col">In Stock Qty</th>
-                <th scope="col">Measure Of Scale</th>
-                <th scope="col">Image</th>
-                <th scope="col"></th>
+                <th scope="col">Order Date</th>
+                <th scope="col">Order ID<th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
                 <tr class="align-middle">
-                    <td>@item.CategoryName</td>
-                    <td>@item.ProductName</td>
-                    <td>@item.Total</td>
-                    <td>@item.Qty</td>
-
-                    <td>@item.MeasureOfScaleName</td>
-                    <td><img width="50" height="50" src="@item.Image1" alt=""></td>
+                    <td>@item.OrderDate</td>
+                    <td>@item.OrderId</td>
                     <td>
                         <div class="btn-group" role="group">
-                            <a class="btn btn-secondary me-1" href="@Url.Action("Details", new { id = item.ProductId })">Details</a>
-                            <a class="btn btn-primary me-1" href="@Url.Action("Upsert", new { id = item.ProductId })">Edit</a>
-                            <a class="btn btn-danger" href="@Url.Action("Delete", new { id = item.ProductId })">Delete</a>
+                            <a class="btn btn-primary me-1" href="@Url.Action("Details", new { OrderId = item.OrderId })">Order Details</a>
                         </div>
                     </td>
                 </tr>

@@ -1,6 +1,7 @@
 ﻿@if (User.Identity.IsAuthenticated){
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item"><a class="nav-link" asp-controller="Orders" asp-action="Index">Orders</a></li>
             @if (User.Identity.Name == "Admin")
             {
                 <li class="nav-item dropdown">
