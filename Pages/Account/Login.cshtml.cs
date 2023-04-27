@@ -1,13 +1,10 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Infrastructure_Layer.Repository;
-using Microsoft.Build.Framework;
-using System.ComponentModel.DataAnnotations;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Authentication;
 using Data_Layer;
 using Infrastructure_Layer;
-using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.ComponentModel.DataAnnotations;
+using System.Security.Claims;
 
 namespace Main.Views.Pages.Account
 {
@@ -46,11 +43,11 @@ namespace Main.Views.Pages.Account
                     new Claim("Admin" , "1") };
                 var identity = new ClaimsIdentity(claims, "MyCookie");
                 ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(identity);
-                
+
                 await HttpContext.SignInAsync("MyCookie", claimsPrincipal);
-                var cookie = HttpContext.Request.Cookies["MyCookie"];
-                save();
-                return RedirectToPage("../../Views/Home/Index.cshtml");
+
+                TempData["PersonId"] = person.CustomerId;
+                return RedirectToPage("Redirect");
             }
             if (person.Password == Credential.Password)
             {
@@ -59,17 +56,16 @@ namespace Main.Views.Pages.Account
                     new Claim("Customer" , "1") };
                 var identity = new ClaimsIdentity(claims, "MyCookie");
                 ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(identity);
-                var tooken = identity.BootstrapContext = true;
 
                 await HttpContext.SignInAsync("MyCookie", claimsPrincipal);
 
                 //Response.Cookies.Append("MyCookie", person.CustomerId.ToString());
-
-                return RedirectToPage("../../Views/Home/Index.cshtml");
+                TempData["PersonId"] = person.CustomerId;
+                return RedirectToPage("Redirect");
 
             }
             return Page();
-        } 
+        }
         public void save()
         {
             string myCookieValue = HttpContext.Request.Cookies["MyCookie"];

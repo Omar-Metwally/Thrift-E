@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace Thrift_E.Controllers
 {
@@ -28,6 +27,7 @@ namespace Thrift_E.Controllers
         [Authorize(policy: "MustBeAdmin")]
         public IActionResult Index()
         {
+
 
             var products = _context.Products
                 .Include(p => p.Category)

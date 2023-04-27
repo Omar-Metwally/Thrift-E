@@ -6,11 +6,7 @@
             <h1>
                 @Html.DisplayFor(model => model.ProductName)
             </h1>
-            <hr class="my-4">
-            <div class="row">
-                <div class="col-sm-3 border-right"><strong>Product ID:</strong></div>
-                <div class="col-sm-9">@Model.ProductId</div>
-            </div>
+
             <hr class="my-4">
             <div class="row">
                 <div class="col-sm-3 border-right"><strong>Category:</strong></div>
@@ -33,31 +29,64 @@
             </div>
             <hr class="my-4">
             <div class="row">
-                <div class="col-sm-3 border-right"><strong>Purchase Date:</strong></div>
-                <div class="col-sm-9">@Html.DisplayFor(model => model.SignupDate)</div>
+                <div class="col-sm-3 border-right"><strong>Description:</strong></div>
+                <div class="col-sm-9">@Html.Raw(Model.Description)</div>
             </div>
+            @if (User.Identity.Name == "Admin")
+            {
+                <hr class="my-4">
+                <div class="row">
+                    <div class="col-sm-3 border-right"><strong>Product ID:</strong></div>
+                    <div class="col-sm-9">@Model.ProductId</div>
+                </div>
+                <hr class="my-4">
+                <div class="row">
+                    <div class="col-sm-3 border-right"><strong>Purchase Date:</strong></div>
+                    <div class="col-sm-9">@Html.DisplayFor(model => model.SignupDate)</div>
+                </div>
+            }
+            <hr class="my-4">
+            <form>
+                <div class="row text-center">
+                    <div class="col-md-12">
+
+                        <input type="submit" value="Add to Cart" class="btn btn-primary" asp-controller="Carts" asp-action="Upsert" asp-route-Id="@Model.ProductId" asp-route-Phone="@Model.Phone" />
+                        @if (User.Identity.Name == "Admin")
+                        {
+                            <a class="btn btn-primary" href="@Url.Action("Upsert", new { id = Model.ProductId })">Edit</a>
+                            <a class="btn btn-danger" href="@Url.Action("Delete", new { id = Model.ProductId })">Delete</a>
+                        }
+                    </div>
+                </div>
+            </form>
         </div>
         <div class="col-md-6">
-            <div class="d-flex justify-content-center align-items-center h-100">
-                <div>
-                    <img class="img-fluid rounded" src="@Html.DisplayFor(model => model.Image1)" alt="">
-                    <img class="img-fluid rounded" src="@Html.DisplayFor(model => model.Image2)" alt="">
-                    <img class="img-fluid rounded" src="@Html.DisplayFor(model => model.Image3)" alt="">
-                    <img class="img-fluid rounded" src="@Html.DisplayFor(model => model.Image4)" alt="">
+            <div class="card">
+                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="@Html.DisplayFor(model => model.Image1)" class="d-block w-100" width="250" height="500" alt="">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="@Html.DisplayFor(model => model.Image2)" class="d-block w-100" width="250" height="500" alt="">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="@Html.DisplayFor(model => model.Image3)" class="d-block w-100" width="250" height="500" alt="">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="@Html.DisplayFor(model => model.Image4)" class="d-block w-100" width="250" height="500" alt="">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="false"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="false"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
-    <form>
-    <div class="row mt-5">
-        <div class="col-md-12 text-center">
-            <label asp-for="@Model.Phone" class="control-label"></label>
-            <input asp-for="@Model.Phone" class="form-control" />
-            <input type="submit" value="Add to Cart" class="btn btn-primary" asp-controller="Carts" asp-action="Upsert" asp-route-Id="@Model.ProductId" asp-route-Phone="@Model.Phone" />
-            <a class="btn btn-primary" asp-controller="Carts" asp-action="Upsert" asp-route-Id="@Model.ProductId" asp-route-Phone="@Model.Phone">Add to Cart</a>
-            <a class="btn btn-primary me-1" href="@Url.Action("Upsert", new { id = Model.ProductId })">Edit</a>
-            <a class="btn btn-danger" href="@Url.Action("Delete", new { id = Model.ProductId })">Delete</a>
-        </div>
-    </div>
-    </form>
 </div>

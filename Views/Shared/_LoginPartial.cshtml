@@ -14,16 +14,21 @@
                 </ul>
             </li>
             }
+            <li class="nav-item"><a class="nav-link" href="#!" >Welcome @User.Identity.Name</a></li>
+            <form method="post" asp-page="/Account/Logout">
             <li class="nav-item">
-                <form method="post" asp-page="/Account/Logout">
-                    Welcome @User.Identity.Name
-                    <button type="submit" class="btn btn-primary">Logout</button>
-                </form>
+                <button type="submit" class="btn btn-secondary">Logout</button>
             </li>
+            </form>
         </ul>
     </div>
 
 }
 else{
-    <a class=" btn btn-link" asp-page="/Account/Login">Login</a>
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4"><li class="nav-item"><a class="nav-link active" asp-page="/Account/Login">Login</a></li>
+    <li class="nav-item"><a class="nav-link active" asp-controller="Customers" asp-action="Signup">Signup</a></li></ul>
 }
+
+
+
+

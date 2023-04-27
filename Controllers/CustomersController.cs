@@ -1,20 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Data_Layer;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Thrift_E;
+﻿using Infrastructure_Layer;
 using Infrastructure_Layer.Models;
-using Infrastructure_Layer.Repository;
-using Infrastructure_Layer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Thrift_E.Controllers
 {
-    [Authorize(policy: "MustBeAdmin")]
+
     public class CustomersController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -23,52 +14,54 @@ namespace Thrift_E.Controllers
         {
             _unitOfWork = unitOfWork;
         }
-
+        [Authorize(policy: "MustBeAdmin")]
         // GET: Customers
         public IActionResult Index()
         {
             //return _context.Customers != null ? 
             var list = _unitOfWork.Customers.GetAll();
             return View(list);
-            
-        }
 
+        }
+        [Authorize(policy: "MustBeAdmin")]
         // GET: Customers/Details/5
-        public IActionResult Details(int? id)
+        /*public IActionResult Details(int? id)
         {
             var entity = _unitOfWork.Customers.Upsert(id);
             return View(entity);
             
-        }
-
+        }*/
+        [Authorize(policy: "MustBeAdmin")]
         public IActionResult Delete(int? id)
         {
             _unitOfWork.Customers.Delete(id);
             _unitOfWork.Save();
             return RedirectToAction(nameof(Index));
-         }
+        }
 
 
         // POST: Create/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public IActionResult Upsert(int? id,Customer customer)
+        public IActionResult Upsert(int? id, Customer customer)
         {
             _unitOfWork.Customers.Upsert(id, customer);
             _unitOfWork.Save();
             return RedirectToAction(nameof(Index));
         }
 
-
-
         // Get: Create/Edit
         [HttpGet]
-        public  IActionResult Upsert(int? id)
+        public IActionResult Upsert(int? id)
         {
             var entity = _unitOfWork.Customers.Upsert(id);
             return View(entity);
 
+        }
+        public IActionResult Signup()
+        {
+            return View();
         }
 
     }

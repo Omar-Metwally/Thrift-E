@@ -3,13 +3,12 @@ using Infrastructure_Layer;
 using Infrastructure_Layer.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 
 namespace Thrift_E.Controllers
 {
-    
+
     public class CartsController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -26,10 +25,11 @@ namespace Thrift_E.Controllers
         {
             var products = _context.Carts.Include(c => c.Product).ThenInclude(p => p.Category).Include(x => x.Product.MeasureOfScale).Select(c => new CartViewModel
             {
+                CustomerId = c.CustomerId,
                 ProductId = c.ProductId,
                 ProductName = c.Product.ProductName,
                 Qty = c.Qty,
-                Price = (double)(c.Product.Price * c.Qty),
+                Price = c.Product.Price,
                 NewOrUsed = c.Product.NewOrUsed,
                 Image1 = c.Product.Image1,
                 CategoryName = c.Product.Category.CategoryName,
@@ -48,26 +48,30 @@ namespace Thrift_E.Controllers
         }
 
 
-        public IActionResult Upsert(int? Id,string Phone)
+        public IActionResult Upsert(int Id)
         {
-            var person = _context.Customers.FirstOrDefault(x => x.Phone == Phone);
-            Cart cart =  new Cart();
-            cart.CustomerId = (int)person.CustomerId;
-            cart.ProductId = (int)Id;
-            cart.Qty = 1;
-            _context.Add(cart);
-            _context.SaveChanges();
-            return RedirectToAction(nameof(Index));
+            string myCookieValue = HttpContext.Request.Cookies["MyCookie"];
+            var person = _context.Customers.FirstOrDefault(x => x.Cookie == myCookieValue);
+            Cart cart = new Cart();
 
-            /*if (ProductId == null)
+            cart = _context.Carts.FirstOrDefault(x => x.CustomerId == person.CustomerId && x.ProductId == Id);
+
+            if (cart == null)
             {
-                return RedirectToAction(nameof(Index));
+                cart = new Cart();
+                cart.CustomerId = (int)person.CustomerId;
+                cart.ProductId = (int)Id;
+                cart.Qty = 1;
+                _context.Add(cart);
             }
             else
             {
-                var entity = _context.Carts.FirstOrDefault(x => x.ProductId == ProductId && x.CustomerId == 1);
-                return View(entity);
-            }*/
+                cart.Qty = cart.Qty + 1;
+                _context.Update(cart);
+            }
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+
         }
 
         [HttpPost]
@@ -80,12 +84,33 @@ namespace Thrift_E.Controllers
                 return RedirectToAction(nameof(Index));
             }
         }
+        [HttpPost]
+        public IActionResult Plus(int ProductId, int CustomerId)
+        {
+            Cart cart = new Cart();
+            cart = _context.Carts.FirstOrDefault(x => x.CustomerId == CustomerId && x.ProductId == ProductId);
+            cart.Qty += 1;
+            _context.Update(cart);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+        [HttpPost]
+        public IActionResult Minus(int ProductId, int CustomerId)
+        {
+            Cart cart = new Cart();
+            cart = _context.Carts.FirstOrDefault(x => x.CustomerId == CustomerId && x.ProductId == ProductId);
+            if (cart.Qty - 1 > 0)
+            {
+                cart.Qty -= 1;
+                _context.Update(cart);
+            }
+            else
+            {
+                _context.Remove(cart);
+            }
 
-
-
-
-
-
-
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
