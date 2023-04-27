@@ -71,5 +71,10 @@ namespace Thrift_E.Controllers
             }).ToList();
             return View(products);
         }
+
+        public IActionResult Details()
+        {
+            return View();
+        }
     }
 }
