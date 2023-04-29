@@ -47,7 +47,7 @@
                                         <i class="fas fa-phone fa-lg me-3 fa-fw"></i>
                                         <div class="form-outline flex-fill mb-0">
                                             <label class="form-label" for="phone">Phone Number</label>
-                                            <input type="tel" id="phone" name="Phone" class="form-control" asp-for="Phone" placeholder="Enter your Phone Number 01XXXXXXXXX" pattern="^01[0-2]\d{1,8}$" required />
+                                            <input type="tel" id="phone" name="Phone" class="form-control" asp-for="Phone" placeholder="Enter your Phone Number 01XXXXXXXXX" pattern="^01[0-2]\d{1,8}$" minlength="11" required />
 
                                         </div>
                                     </div>
