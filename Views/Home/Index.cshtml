@@ -16,25 +16,24 @@
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
             @foreach (var item in Model)
             {
-            <div class="col mb-5">
-                <div class="card h-100">
-                    <!-- Product image-->
-                    <img class="card-img-top" src="@item.Image1" width="150" height="150" alt="..." />
-                    <!-- Product details-->
-                    <div class="card-body p-4">
-                        <div class="text-center">
-                            <!-- Product name-->
-                            <h5 class="fw-bolder">@item.ProductName</h5>
-                            <!-- Product price-->
-                            @item.Price EGP
+                <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
+                    <div class="card product-item border-0 mb-4">
+                        <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                            <img class="img-fluid w-100" src="@item.Image1" alt="">
+                        </div>
+                        <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                            <h6 class="text-truncate">@item.ProductName</h6>
+                            <h6 class="text-truncate">@Html.Raw(item.Description)</h6>
+                            <div class="d-flex justify-content-center">
+                                <h6>@item.Price EGP</h6>
+                            </div>
+                        </div>
+                        <div class="card-footer d-flex justify-content-between bg-light border">
+                            <a class="btn btn-sm text-dark p-0" asp-controller="Products" asp-action="Details" asp-route-ProductId="@item.ProductId"><i class="bi bi-eye text-primary m-1"></i>View Detail</a>
+                            <a class="btn btn-sm text-dark p-0" asp-controller="Carts" asp-action="Upsert" asp-route-ProductId="@item.ProductId"><i class="bi bi-bag text-primary m-1"></i>Add To Cart</a>
                         </div>
                     </div>
-                    <!-- Product actions-->
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="@Url.Action("Details", "Products", new { ProductId = item.ProductId })">Product Details</a></div>
-                    </div>
                 </div>
-            </div>
             }
         </div>
     </div>

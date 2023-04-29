@@ -2,6 +2,7 @@
 using Infrastructure_Layer.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Thrift_E.Controllers
 {
@@ -46,9 +47,13 @@ namespace Thrift_E.Controllers
 
         public IActionResult Upsert(int? id, Customer customer)
         {
-            _unitOfWork.Customers.Upsert(id, customer);
-            _unitOfWork.Save();
-            return RedirectToAction(nameof(Index));
+            if (ModelState.IsValid)
+            {
+                _unitOfWork.Customers.Upsert(id, customer);
+                _unitOfWork.Save();
+                return RedirectToAction(nameof(Index));
+            }
+            return View("Signup");
         }
 
         // Get: Create/Edit

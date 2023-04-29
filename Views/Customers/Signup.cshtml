@@ -21,7 +21,7 @@
                                         <div class="form-outline flex-fill mb-0">
                                             <label class="form-label" for="firstName">First Name</label>
                                             <input type="text" id="firstName" name="FirstName" class="form-control" asp-for="FirstName" autofocus placeholder="Enter your First Name" required />
-
+                                            <span asp-validation-for="FirstName" class="text-danger"></span>
                                         </div>
                                     </div>
 
@@ -30,7 +30,7 @@
                                         <div class="form-outline flex-fill mb-0">
                                             <label class="form-label" for="middleName">Middle Name</label>
                                             <input type="text" id="middleName" name="MiddleName" class="form-control" asp-for="MiddleName" placeholder="Enter your Middle Name" required />
-
+                                            <span asp-validation-for="MiddleName" class="text-danger"></span>
                                         </div>
                                     </div>
 
@@ -39,7 +39,7 @@
                                         <div class="form-outline flex-fill mb-0">
                                             <label class="form-label" for="lastName">Last Name</label>
                                             <input type="text" id="lastName" name="LastName" class="form-control" asp-for="LastName" placeholder="Enter your Last Name" required />
-
+                                            <span asp-validation-for="LastName" class="text-danger"></span>
                                         </div>
                                     </div>
 
@@ -47,8 +47,8 @@
                                         <i class="fas fa-phone fa-lg me-3 fa-fw"></i>
                                         <div class="form-outline flex-fill mb-0">
                                             <label class="form-label" for="phone">Phone Number</label>
-                                            <input type="tel" id="phone" name="Phone" class="form-control" asp-for="Phone" placeholder="Enter your Phone Number 01XXXXXXXXX" pattern="^01[0-2]\d{1,8}$" minlength="11" required />
-
+                                            <input type="tel" id="phone" name="Phone" class="form-control" asp-for="Phone" placeholder="Enter your Phone Number 01XXXXXXXXX" minlength="11" required />
+                                            <span asp-validation-for="Phone" class="text-danger"></span>
                                         </div>
                                     </div>
 
@@ -57,7 +57,7 @@
                                         <div class="form-outline flex-fill mb-0">
                                             <label class="form-label" for="email">Email Address</label>
                                             <input type="email" id="email" name="Email" class="form-control" asp-for="Email" placeholder="example@mail.com" required />
-
+                                            <span asp-validation-for="Email" class="text-danger"></span>
                                         </div>
                                     </div>
 
@@ -65,14 +65,13 @@
                                         <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                                         <div class="form-outline flex-fill mb-0">
                                             <label class="form-label" for="password">Password</label>
-                                            <input type="password" id="password" name="Password" class="form-control" asp-for="Password" placeholder="Enter a Complex Password" minlength="6" />
-
+                                            <input type="password" id="password" name="Password" class="form-control" asp-for="Password" placeholder="Enter a Complex Password" minlength="8" />
+                                            <span asp-validation-for="Password" class="text-danger"></span>
                                         </div>
                                     </div>
 
                                     <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                                         <input type="submit" class="btn btn-primary btn-lg" value="Register" />
-
                                     </div>
 
                                 </form>
@@ -91,3 +90,8 @@
         </div>
     </div>
 </section>
+@section Scripts {
+    @{
+    <partial name="_ValidationScriptsPartial"/>
+    }
+}

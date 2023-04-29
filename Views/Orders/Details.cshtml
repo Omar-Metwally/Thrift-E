@@ -1,7 +1,7 @@
 ﻿@model List<OrderViewModel>
 @{
     double? totalAmount = 0;
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Order Details";
 }
 <section class="h-100 gradient-custom">
     <div class="container py-5 h-100">
@@ -47,7 +47,7 @@
                             <p class="fw-bold mb-0">Order Date: @Model.First().OrderDate</p>
                             <p class="text-muted mb-0"><span class="fw-bold me-4">Delivery fee</span>20 EGP</p>
                         </div>
-                        <div class="d-flex justify-content-between mb-1
+                        <div class="d-flex justify-content-between mb-1">
                             <p class="text-muted mb-0 small">Please contact us for any issue with the order</p>
                             <p class="text-muted mb-0"><span class="fw-bold me-4">Discount</span> 0 EGP</p>
                         </div>

@@ -1,6 +1,15 @@
 ﻿@model Product
+@if (Model == null)
+{
+    ViewData["Title"] = "Add";
+    <h2 class="m-3">Add New Product</h2>
+}
+else
+{
+    ViewData["Title"] = "Update";
+    <h2 class ="m-3">Update Product</h2>
+}
 
-<h2>Add New Product</h2>
 
 <form asp-action="Upsert" enctype="multipart/form-data">
     <input type="hidden" asp-for="ProductId" />
@@ -8,71 +17,116 @@
     <input type="hidden" asp-for="Image2" />
     <input type="hidden" asp-for="Image3" />
     <input type="hidden" asp-for="Image4" />
-    <div class="form-group">
-        <label asp-for="ProductName" class="control-label"></label>
-        <input asp-for="ProductName" class="form-control" />
-        <span asp-validation-for="ProductName" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="InstockQty" class="control-label"></label>
-        <input asp-for="InstockQty" class="form-control" />
-        <span asp-validation-for="InstockQty" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Price" class="control-label"></label>
-        <input asp-for="Price" class="form-control" />
-        <span asp-validation-for="Price" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="NewOrUsed" class="control-label"></label>
-        <select asp-for="NewOrUsed" class="form-control">
-            <option value="">Select</option>
-            <option value="True">Yes</option>
-            <option value="False">No</option>
-        </select>
-        <span asp-validation-for="NewOrUsed" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="CategoryId" class="control-label"></label>
-        <select asp-for="CategoryId" class="form-control" asp-items="@ViewBag.Categories"></select>
-        <span asp-validation-for="CategoryId" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="MeasureOfScaleId" class="control-label"></label>
-        <select asp-for="MeasureOfScaleId" class="form-control" asp-items="@ViewBag.MeasureOfScales"></select>
-        <span asp-validation-for="MeasureOfScaleId" class="text-danger"></span>
-    </div>
-    <div class="form-outline mb-4">
-        <label class="form-label" asp-for="Description"></label>
-        <div>
-            <textarea asp-for="Description" class="form-control"></textarea>
-            <span asp-validation-for="Description" class="text-danger"></span>
+    <div class="col-lg-8 mb-3 mb-lg-0">
+        <!-- Card -->
+        <div class="card mb-3 mb-lg-5">
+            <!-- Header -->
+            <div class="card-header">
+                <h4 class="card-header-title">Product information</h4>
+            </div>
+            <!-- End Header -->
+            <!-- Body -->
+            <div class="card-body">
+                <!-- Form -->
+                <div class="mb-4">
+                    <label for="productNameLabel" class="form-label">Name </label>
+
+                    <input type="text" class="form-control" asp-for="ProductName" id="productNameLabel" placeholder="Enter Product Name">
+                </div>
+                <!-- End Form -->
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <!-- Form -->
+                        <div class="mb-4">
+                            <label for="SKULabel" class="form-label">Bought QTY</label>
+
+                            <input type="number" class="form-control" asp-for="InstockQty" placeholder="Enter Bought QTY">
+                        </div>
+                        <div class="mb-4">
+                            <label for="SKULabel" class="form-label">Price Per Unit</label>
+
+                            <input type="number" class="form-control" asp-for="Price" placeholder="Enter Price Per Unit">
+                        </div>
+                        <div class="mb-4">
+                            <label for="SKULabel" class="form-label">Product Size Scale</label>
+                            <select asp-for="MeasureOfScaleId" class="form-control" asp-items="@ViewBag.MeasureOfScales"></select>
+                        </div>
+                        <!-- End Form -->
+                    </div>
+                    <!-- End Col -->
+
+                    <div class="col-sm-6">
+                        <!-- Form -->
+                        <div class="mb-4">
+                            <label for="SKULabel" class="form-label">New</label>
+                            <select asp-for="NewOrUsed" class="form-control">
+                                <option value="">Select</option>
+                                <option value="True">Yes</option>
+                                <option value="False">No</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label for="SKULabel" class="form-label">Product Category</label>
+                            <select asp-for="CategoryId" class="form-control" asp-items="@ViewBag.Categories"></select>
+                        </div>
+                    <!-- End Col -->
+                    </div>
+                <!-- End Row -->
+                </div>
+
+                <div class="mb-4">
+                        <label for="productNameLabel" class="form-label">Product Description</label>
+
+                        <textarea asp-for="Description" class="form-control"></textarea>
+                </div>
+            </div>
+            <!-- Body -->
         </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label"></label>
-        <input type="file" accept="image/*" class="form-control-file" name="file1" />
+        <!-- End Card -->
+        <!-- Card -->
+        <div class="card mb-3 mb-lg-5">
+            <!-- Header -->
+            <div class="card-header card-header-content-between">
+                <h4 class="card-header-title">Media</h4>
 
-    </div>
-    <div class="form-group">
-        <label class="control-label"></label>
-        <input type="file" accept="image/*" class="form-control-file" name="file2" />
+                <!-- Dropdown -->
+                <div class="dropdown">
+                    <div class="dropdown-menu dropdown-menu-end mt-1">
+                        <a class="dropdown-item" href="javascript:;" data-bs-toggle="modal" data-bs-target="#addImageFromURLModal">
+                            <i class="bi-link dropdown-item-icon"></i> Add image from URL
+                        </a>
+                        <a class="dropdown-item" href="javascript:;" data-bs-toggle="modal" data-bs-target="#embedVideoModal">
+                            <i class="bi-youtube dropdown-item-icon"></i> Embed video
+                        </a>
+                    </div>
+                </div>
+                <!-- End Dropdown -->
+            </div>
+            <!-- End Header -->
+            <!-- Body -->
+            <div class="card-body">
+                <!-- Dropzone -->
+                <div id="attachFilesNewProjectLabel" class="js-dropzone dz-dropzone dz-dropzone-card dz-clickable">
+                    <div class="dz-message">
+                            <label class="form-label" for="customFile">Image 1</label>
+                        <input input type="file" accept="image/*" class="form-control" name="file1" />
+                            <label class="form-label" for="customFile">Image 2</label>
+                        <input input type="file" accept="image/*" class="form-control" name="file2" />
+                            <label class="form-label" for="customFile">Image 3</label>
+                        <input input type="file" accept="image/*" class="form-control" name="file3" />
+                            <label class="form-label" for="customFile">Image 4</label>
+                        <input input type="file" accept="image/*" class="form-control" name="file4" />
+                    </div>
+                </div>
+                <!-- End Dropzone -->
+            </div>
+            <!-- Body -->
 
-    </div>
-    <div class="form-group">
-        <label class="control-label"></label>
-        <input type="file" accept="image/*" class="form-control-file" name="file3" />
-
-    </div>
-    <div class="form-group">
-        <label class="control-label"></label>
-        <input type="file" accept="image/*" class="form-control-file" name="file4" />
-
-    </div>
-
-
-    <div class="form-group">
-        <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+        <div class="form-group ">
+            <input type="submit" value="Create" class="btn btn-primary mb-4" />
+        </div>
     </div>
 </form>
 

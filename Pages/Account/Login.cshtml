@@ -17,16 +17,20 @@
 
           <!-- Email input -->
           <div class="form-outline mb-4">
+              <label class="form-label" for="form3Example3">Email address</label>
             <input type="email" asp-for="Credential.Email" class="form-control form-control-lg"
               placeholder="Enter a valid email address" />
-            <label class="form-label" for="form3Example3">Email address</label>
+              <span asp-validation-for="Credential.Email" class="text-danger"></span>
+
           </div>
 
           <!-- Password input -->
           <div class="form-outline mb-3">
+              <label class="form-label" for="form3Example4">Password</label>
             <input type="password" asp-for="Credential.Password" class="form-control form-control-lg"
               placeholder="Enter password" />
-            <label class="form-label" for="form3Example4">Password</label>
+              <span asp-validation-for="Credential.Password" class="text-danger"></span>
+            
           </div>
 
           <div class="text-center text-lg-start mt-4 pt-2">
@@ -38,3 +42,6 @@
     </div>
   </div>
 </section>
+@{
+        <partial name="_ValidationScriptsPartial" />
+    }

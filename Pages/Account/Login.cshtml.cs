@@ -34,9 +34,14 @@ namespace Main.Views.Pages.Account
         {
 
 
-            if (!ModelState.IsValid) return Page();
+            if (!ModelState.IsValid);
             var person = _context.Customers.FirstOrDefault(x => x.Email == Credential.Email);
-            if (person.Admin == true && person.Password == Credential.Password)
+            if(person == null)
+            {
+                ModelState.AddModelError("Credential.Email","Please check the entered the email");
+                return Page();
+            }
+            else if (person.Admin == true && person.Password == Credential.Password)
             {
                 var claims = new List<Claim> {
                     new Claim(ClaimTypes.Name, "Admin"),
@@ -49,7 +54,7 @@ namespace Main.Views.Pages.Account
                 TempData["PersonId"] = person.CustomerId;
                 return RedirectToPage("Redirect");
             }
-            if (person.Password == Credential.Password)
+            else if(person.Password == Credential.Password)
             {
                 var claims = new List<Claim> {
                     new Claim(ClaimTypes.Name, "Customer"),
@@ -59,16 +64,12 @@ namespace Main.Views.Pages.Account
 
                 await HttpContext.SignInAsync("MyCookie", claimsPrincipal);
 
-                //Response.Cookies.Append("MyCookie", person.CustomerId.ToString());
                 TempData["PersonId"] = person.CustomerId;
                 return RedirectToPage("Redirect");
 
             }
+            ModelState.AddModelError("Credential.Password", "Wrong Password");
             return Page();
-        }
-        public void save()
-        {
-            string myCookieValue = HttpContext.Request.Cookies["MyCookie"];
         }
     }
 
