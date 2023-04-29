@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Thrift_E.Controllers
 {
-
+    [Authorize]
     public class CartsController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -51,19 +51,19 @@ namespace Thrift_E.Controllers
         }
 
 
-        public IActionResult Upsert(int Id)
+        public IActionResult Upsert(int ProductId)
         {
             string myCookieValue = HttpContext.Request.Cookies["MyCookie"];
             var person = _context.Customers.FirstOrDefault(x => x.Cookie == myCookieValue);
             Cart cart = new Cart();
 
-            cart = _context.Carts.FirstOrDefault(x => x.CustomerId == person.CustomerId && x.ProductId == Id);
+            cart = _context.Carts.FirstOrDefault(x => x.CustomerId == person.CustomerId && x.ProductId == ProductId);
 
             if (cart == null)
             {
                 cart = new Cart();
                 cart.CustomerId = (int)person.CustomerId;
-                cart.ProductId = (int)Id;
+                cart.ProductId = (int)ProductId;
                 cart.Qty = 1;
                 _context.Add(cart);
             }

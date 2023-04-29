@@ -19,53 +19,60 @@
                                     <div class="d-flex flex-row align-items-center mb-4">
                                         <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                                         <div class="form-outline flex-fill mb-0">
-                                            <input type="text" id="firstName" name="FirstName" class="form-control" asp-for="FirstName" />
                                             <label class="form-label" for="firstName">First Name</label>
+                                            <input type="text" id="firstName" name="FirstName" class="form-control" asp-for="FirstName" autofocus placeholder="Enter your First Name" required />
+
                                         </div>
                                     </div>
 
                                     <div class="d-flex flex-row align-items-center mb-4">
                                         <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                                         <div class="form-outline flex-fill mb-0">
-                                            <input type="text" id="middleName" name="MiddleName" class="form-control" asp-for="MiddleName" />
                                             <label class="form-label" for="middleName">Middle Name</label>
+                                            <input type="text" id="middleName" name="MiddleName" class="form-control" asp-for="MiddleName" placeholder="Enter your Middle Name" required />
+
                                         </div>
                                     </div>
 
                                     <div class="d-flex flex-row align-items-center mb-4">
                                         <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                                         <div class="form-outline flex-fill mb-0">
-                                            <input type="text" id="lastName" name="LastName" class="form-control" asp-for="LastName" />
                                             <label class="form-label" for="lastName">Last Name</label>
+                                            <input type="text" id="lastName" name="LastName" class="form-control" asp-for="LastName" placeholder="Enter your Last Name" required />
+
                                         </div>
                                     </div>
 
                                     <div class="d-flex flex-row align-items-center mb-4">
                                         <i class="fas fa-phone fa-lg me-3 fa-fw"></i>
                                         <div class="form-outline flex-fill mb-0">
-                                            <input type="tel" id="phone" name="Phone" class="form-control" asp-for="Phone" />
                                             <label class="form-label" for="phone">Phone Number</label>
+                                            <input type="tel" id="phone" name="Phone" class="form-control" asp-for="Phone" placeholder="Enter your Phone Number 01XXXXXXXXX" pattern="^01[0-2]\d{1,8}$" required />
+
                                         </div>
                                     </div>
 
                                     <div class="d-flex flex-row align-items-center mb-4">
                                         <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                                         <div class="form-outline flex-fill mb-0">
-                                            <input type="email" id="email" name="Email" class="form-control" asp-for="Email" />
                                             <label class="form-label" for="email">Email Address</label>
+                                            <input type="email" id="email" name="Email" class="form-control" asp-for="Email" placeholder="example@mail.com" required />
+
                                         </div>
                                     </div>
 
                                     <div class="d-flex flex-row align-items-center mb-4">
                                         <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                                         <div class="form-outline flex-fill mb-0">
-                                            <input type="password" id="password" name="Password" class="form-control" asp-for="Password" />
                                             <label class="form-label" for="password">Password</label>
+                                            <input type="password" id="password" name="Password" class="form-control" asp-for="Password" placeholder="Enter a Complex Password" minlength="6" />
+
                                         </div>
                                     </div>
 
                                     <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                                         <input type="submit" class="btn btn-primary btn-lg" value="Register" />
+
                                     </div>
 
                                 </form>
@@ -73,8 +80,8 @@
                             </div>
                             <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
 
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
-                                     class="img-fluid" alt="Sample image">
+                                <img src="/images/Signup/Signup.jpg" class="rounded float-right img-fluid"
+                                     alt="Sample image">
 
                             </div>
                         </div>

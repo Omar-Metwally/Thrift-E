@@ -11,6 +11,7 @@ using static NuGet.Packaging.PackagingConstants;
 
 namespace Thrift_E.Controllers
 {
+    [Authorize]
     public class OrdersController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -78,6 +79,7 @@ namespace Thrift_E.Controllers
             var products = _context.OrderdProducts.Where(z => z.OrderId == OrderId).Include(c => c.Product).ThenInclude(l => l.Category).Include(p => p.Product.MeasureOfScale).Include(p => p.Order).Select(c => new OrderViewModel
             {
                 CustomerId = c.Order.CustomerId,
+                CustomerName = person.FirstName,
                 ProductId = c.ProductId,
                 ProductName = c.Product.ProductName,
                 Qty = c.Qty,

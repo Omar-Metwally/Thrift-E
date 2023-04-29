@@ -1,5 +1,5 @@
 ﻿@model ProductViewModel
-<input type="hidden" asp-for="ProductId" />
+<input type="hidden" asp-for="@Model.ProductId" />
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
@@ -50,7 +50,8 @@
                 <div class="row text-center">
                     <div class="col-md-12">
 
-                        <input type="submit" value="Add to Cart" class="btn btn-primary" asp-controller="Carts" asp-action="Upsert" asp-route-Id="@Model.ProductId" asp-route-Phone="@Model.Phone" />
+                        <a class="btn btn-primary" asp-controller="Carts" asp-action="Upsert" asp-route-ProductId="@Model.ProductId">
+                            Add to Cart</a>
                         @if (User.Identity.Name == "Admin")
                         {
                             <a class="btn btn-primary" href="@Url.Action("Upsert", new { id = Model.ProductId })">Edit</a>

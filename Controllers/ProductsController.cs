@@ -141,12 +141,13 @@ namespace Thrift_E.Controllers
 
         }
 
-        public IActionResult Details(int? id)
+        public IActionResult Details(int? ProductId)
         {
 
             var products = _context.Products
                 .Include(p => p.Category)
                 .Include(p => p.MeasureOfScale)
+                .Where(p => p.ProductId == ProductId)
                 .Select(p => new ProductViewModel
                 {
                     ProductId = p.ProductId,
@@ -162,10 +163,88 @@ namespace Thrift_E.Controllers
                     Description = p.Description,
                     CategoryName = p.Category.CategoryName,
                     MeasureOfScaleName = p.MeasureOfScale.MeasureOfScale
-                });
+                }).FirstOrDefault();
 
-            return View(products.First(p => p.ProductId == id));
+            return View(products);
 
+        }
+
+        public IActionResult Store()
+        {
+            var products = _context.Products
+                .Include(p => p.Category)
+                .Include(p => p.MeasureOfScale)
+                .OrderBy(p => p.Price)
+                .Select(p => new ProductViewModel
+                {
+                    ProductId = p.ProductId,
+                    ProductName = p.ProductName,
+                    Price = p.Price,
+                    Image1 = p.Image1,
+                    CategoryName = p.Category.CategoryName,
+                    MeasureOfScaleName = p.MeasureOfScale.MeasureOfScale,
+                    Description = p.Description,
+                })
+                .ToList();
+
+            return View(products);
+
+        }
+
+        public IActionResult StoreFilter(double? Low, double? High, int? CategoryId)
+        {
+            var productsQuery = _context.Products
+                .Include(p => p.Category)
+                .Include(p => p.MeasureOfScale);
+
+            if (Low != null && High != null)
+            {
+                productsQuery = productsQuery.Where(p => p.Price >= Low.Value && p.Price <= High.Value)
+                    .Include(p => p.MeasureOfScale);
+            }
+
+            if (CategoryId != null)
+            {
+                productsQuery = productsQuery.Where(p => p.CategoryId == CategoryId)
+                    .Include(p => p.MeasureOfScale);
+            }
+
+            var products = productsQuery.OrderBy(p => p.Price)
+                .Select(p => new ProductViewModel
+                {
+                    ProductId = p.ProductId,
+                    ProductName = p.ProductName,
+                    Price = p.Price,
+                    Image1 = p.Image1,
+                    CategoryName = p.Category.CategoryName,
+                    MeasureOfScaleName = p.MeasureOfScale.MeasureOfScale,
+                                        Description = p.Description,
+                })
+                .ToList();
+
+            return View("Store", products);
+        }
+
+        public IActionResult StoreSearch(string word)
+        {
+            var products = _context.Products
+                .Include(p => p.Category)
+                .Include(p => p.MeasureOfScale)
+                .OrderBy(p => p.Price)
+                .Where(p => p.ProductName.Contains(word))
+                .Select(p => new ProductViewModel
+                {
+                    ProductId = p.ProductId,
+                    ProductName = p.ProductName,
+                    Price = p.Price,
+                    Image1 = p.Image1,
+                    CategoryName = p.Category.CategoryName,
+                    MeasureOfScaleName = p.MeasureOfScale.MeasureOfScale,
+                    Description = p.Description,
+                })
+                .ToList();
+
+            return View("Store", products);
         }
     }
 }

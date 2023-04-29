@@ -4,27 +4,37 @@
     @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
     Layout = "../../Views/Shared/_Layout.cshtml";
 }
-<h1>Login</h1>
+<section class="vh-100">
+  <div class="container-fluid h-custom">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-md-9 col-lg-6 col-xl-5">
+        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+          class="img-fluid" alt="Sample image">
+      </div>
+      <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+        <form method="post">
 
-<div>
-    <form method="post">
-        <div>
-            <div>
-                <label asp-for="Credential.Email"></label>
-            </div>
-            <div>
-                <input type="text" asp-for="Credential.Email" class="form-control" />
-            </div>
-            <div>
-                <label asp-for="Credential.Password" class="control-label"></label>
-            </div>
-            <div>
-                <input type="text" asp-for="Credential.Password" class="form-control" />
-            </div>
-            <div>
-                <input type="submit" value="login"/>
 
-            </div>
-        </div>
-    </form>
-</div>
+          <!-- Email input -->
+          <div class="form-outline mb-4">
+            <input type="email" asp-for="Credential.Email" class="form-control form-control-lg"
+              placeholder="Enter a valid email address" />
+            <label class="form-label" for="form3Example3">Email address</label>
+          </div>
+
+          <!-- Password input -->
+          <div class="form-outline mb-3">
+            <input type="password" asp-for="Credential.Password" class="form-control form-control-lg"
+              placeholder="Enter password" />
+            <label class="form-label" for="form3Example4">Password</label>
+          </div>
+
+          <div class="text-center text-lg-start mt-4 pt-2">
+                <input type="submit" value="login" class="btn btn-primary btn-lg"
+              style="padding-left: 2.5rem; padding-right: 2.5rem;"/>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

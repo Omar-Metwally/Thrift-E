@@ -56,7 +56,7 @@
                     <td><img width="50" height="50" src="@item.Image1" alt=""></td>
                     <td>
                         <div class="btn-group" role="group">
-                            <a class="btn btn-secondary me-1" href="@Url.Action("Details", new { id = item.ProductId })">Details</a>
+                            <a class="btn btn-secondary me-1" href="@Url.Action("Details", new { ProductId = item.ProductId })">Details</a>
                             <a class="btn btn-primary me-1" href="@Url.Action("Upsert", new { id = item.ProductId })">Edit</a>
                             <a class="btn btn-danger" href="@Url.Action("Delete", new { id = item.ProductId })">Delete</a>
                         </div>
