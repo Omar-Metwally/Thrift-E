@@ -172,6 +172,9 @@ namespace Thrift_E.Controllers
 
         public IActionResult Store()
         {
+            ViewBag.Categories = new SelectList(_context.Categorys.ToList(), "CategoryId", "CategoryName");
+            ViewBag.MeasureOfScales = new SelectList(_context.MeasuresOfScales.ToList(), "MeasureOfScaleId", "MeasureOfScale");
+
             var products = _context.Products
                 .Include(p => p.Category)
                 .Include(p => p.MeasureOfScale)
@@ -194,6 +197,9 @@ namespace Thrift_E.Controllers
 
         public IActionResult StoreFilter(double? lowPrice, double? highPrice, int? categoryId)
         {
+            ViewBag.Categories = new SelectList(_context.Categorys.ToList(), "CategoryId", "CategoryName");
+            ViewBag.MeasureOfScales = new SelectList(_context.MeasuresOfScales.ToList(), "MeasureOfScaleId", "MeasureOfScale");
+
             var productsQuery = _context.Products
                 .Include(p => p.Category)
                 .Include(p => p.MeasureOfScale);

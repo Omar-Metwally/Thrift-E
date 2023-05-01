@@ -2,7 +2,6 @@
 @{
     ViewData["Title"] = "Store";
     Layout = "../Shared/_Layout.cshtml";
-    string x = null;
 }
 <!-- Shop Start -->
 <div class="container-fluid pt-5">
@@ -40,29 +39,16 @@
                             Filter by category
                         </div>
                         <div class="card-body">
-                            
-                            @foreach (var category in Model)
-                            {
-                                if (@category.CategoryName != x)
-                                {
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="categoryId" value="@category.CategoryId" id="category-@category.CategoryId">
-                                        <label class="form-check-label ml-3" for="category-@category.CategoryId">
-                                        @category.CategoryName
-                                    </label>
-                                </div>
-                                }
-                                x = @category.CategoryName;
-                            }
+                            <select class="form-control" name="categoryId" asp-items="@ViewBag.Categories"><option value="">Select</option>     </select>
                         </div>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Filter</button>
                 </form>
             </div>
-            <!-- Size End -->
+
         </div>
-        <!-- Shop Sidebar End -->
+
         <!-- Shop Product Start -->
         <div class="col-lg-9 col-md-12">
             <div class="row pb-3">
