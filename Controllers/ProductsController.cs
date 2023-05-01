@@ -98,7 +98,6 @@ namespace Thrift_E.Controllers
             if (id == null)
             {
                 _context.Add(product);
-                product.SignupDate = DateTime.Now;
             }
             else _context.Update(product);
 
@@ -220,7 +219,6 @@ namespace Thrift_E.Controllers
                 {
                     ProductId = p.ProductId,
                     ProductName = p.ProductName,
-                    CategoryId = p.CategoryId,
                     Price = p.Price,
                     Image1 = p.Image1,
                     CategoryName = p.Category.CategoryName,
