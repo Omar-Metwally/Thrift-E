@@ -2,125 +2,62 @@
 @{
     ViewData["Title"] = "Store";
     Layout = "../Shared/_Layout.cshtml";
+    string x = null;
 }
 <!-- Shop Start -->
 <div class="container-fluid pt-5">
     <div class="row px-xl-5">
         <!-- Shop Sidebar Start -->
-        <div class="col-lg-2 col-md-10">
+        <div class="col-lg-3 col-md-10">
             <!-- Price Start -->
             <div class="border-bottom mb-4 pb-4">
                 <h5 class="font-weight-semi-bold mb-4">Filter by price</h5>
-                <form method="post">
-                    <div class="form-check d-flex align-items-center justify-content-between mb-3">
-                        <a class="form-check-input" asp-controller="Products" asp-action="StoreFilter"></a>
-                        <label class="form-check-label" for="price-all">All Price</label>
-                        <span class="badge rounded-pill bg-light text-dark">0</span>
+                <form asp-controller="Products" asp-action="StoreFilter" method="get">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            Filter by price range
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="number" class="form-control" id="lowPrice" name="lowPrice" placeholder=" ">
+                                        <label for="lowPrice">Low price</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="number" class="form-control" id="highPrice" name="highPrice" placeholder=" ">
+                                        <label for="highPrice">High price</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-check d-flex align-items-center justify-content-between mb-3">
-                        <a class="form-check-input" asp-controller="Products" asp-action="StoreFilter" asp-route-Low="0" asp-route-High="100"></a>
-                        <label class="form-check-label" for="price-1">0 - 100</label>
-                        <span class="badge rounded-pill bg-light text-dark">0</span>
+
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            Filter by category
+                        </div>
+                        <div class="card-body">
+                            
+                            @foreach (var category in Model)
+                            {
+                                if (@category.CategoryName != x)
+                                {
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="categoryId" value="@category.CategoryId" id="category-@category.CategoryId">
+                                        <label class="form-check-label ml-3" for="category-@category.CategoryId">
+                                        @category.CategoryName
+                                    </label>
+                                </div>
+                                }
+                                x = @category.CategoryName;
+                            }
+                        </div>
                     </div>
-                    <div class="form-check d-flex align-items-center justify-content-between mb-3">
-                        <a class="form-check-input" asp-controller="Products" asp-action="StoreFilter" asp-route-Low="100" asp-route-High="200"></a>
-                        <label class="form-check-label" for="price-2">100 - 200</label>
-                        <span class="badge rounded-pill bg-light text-dark">0</span>
-                    </div>
-                    <div class="form-check d-flex align-items-center justify-content-between mb-3">
-                        <a class="form-check-input" asp-controller="Products" asp-action="StoreFilter" asp-route-Low="200" asp-route-High="300"></a>
-                        <label class="form-check-label" for="price-2">200 - 300</label>
-                        <span class="badge rounded-pill bg-light text-dark">0</span>
-                    </div>
-                    <div class="form-check d-flex align-items-center justify-content-between mb-3">
-                        <a class="form-check-input" asp-controller="Products" asp-action="StoreFilter" asp-route-Low="300" asp-route-High="400"></a>
-                        <label class="form-check-label" for="price-2">300 - 400</label>
-                        <span class="badge rounded-pill bg-light text-dark">0</span>
-                    </div>
-                    <div class="form-check d-flex align-items-center justify-content-between mb-3">
-                        <a class="form-check-input" asp-controller="Products" asp-action="StoreFilter" asp-route-Low="400" asp-route-High="500"></a>
-                        <label class="form-check-label" for="price-2">400 - 500</label>
-                        <span class="badge rounded-pill bg-light text-dark">0</span>
-                    </div>
-                    <div class="form-check d-flex align-items-center justify-content-between mb-3">
-                        <a class="form-check-input" asp-controller="Products" asp-action="StoreFilter" asp-route-Low="500" asp-route-High="1000"></a>
-                        <label class="form-check-label">500 - 1000</label>
-                        <span class="badge rounded-pill bg-light text-dark">0</span>
-                    </div>
-                </form>
-            </div>
-            <!-- Price End -->
-            <!-- Color Start -->
-            <div class="border-bottom mb-4 pb-4">
-                <h5 class="font-weight-semi-bold mb-4">Filter by category</h5>
-                <form>
-                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <a class="form-check-input" asp-controller="Products" asp-action="StoreFilter"></a>
-                        <label class="custom-control-label">All Categories</label>
-                        <span class="badge rounded-pill bg-light text-dark">0</span>
-                    </div>
-                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <a class="form-check-input" asp-controller="Products" asp-action="StoreFilter" asp-route-CategoryId="1"></a>                        
-                        <label class="custom-control-label">Men T-shirts</label>
-                        <span class="badge rounded-pill bg-light text-dark">0</span>
-                    </div>
-                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <a class="form-check-input" asp-controller="Products" asp-action="StoreFilter" asp-route-CategoryId="2"></a>                        
-                        <label class="custom-control-label">Jackects</label>
-                        <span class="badge rounded-pill bg-light text-dark">0</span>
-                    </div>
-                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <a class="form-check-input" asp-controller="Products" asp-action="StoreFilter" asp-route-CategoryId="3"></a>                        
-                        <label class="custom-control-label">Sweatshirt</label>
-                        <span class="badge rounded-pill bg-light text-dark">0</span>
-                    </div>
-                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <a class="form-check-input" asp-controller="Products" asp-action="StoreFilter" asp-route-CategoryId="4"></a>                        
-                        <label class="custom-control-label">Jeans</label>
-                        <span class="badge rounded-pill bg-light text-dark">0</span>
-                    </div>
-                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                        <a class="form-check-input" asp-controller="Products" asp-action="StoreFilter" asp-route-CategoryId="5"></a>                        
-                        <label class="custom-control-label">Caps</label>
-                        <span class="badge rounded-pill bg-light text-dark">0</span>
-                    </div>
-                </form>
-            </div>
-            <!-- Color End -->
-            <!-- Size Start -->
-            <div class="mb-5">
-                <h5 class="font-weight-semi-bold mb-4">Filter by size</h5>
-                <form>
-                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" checked id="size-all">
-                        <label class="custom-control-label">All Size</label>
-                        <span class="badge rounded-pill bg-light text-dark">0</span>
-                    </div>
-                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input">
-                        <label class="custom-control-label">XS</label>
-                        <span class="badge rounded-pill bg-light text-dark">0</span>
-                    </div>
-                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input">
-                        <label class="custom-control-label">S</label>
-                        <span class="badge rounded-pill bg-light text-dark">0</span>
-                    </div>
-                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input">
-                        <label class="custom-control-label">M</label>
-                        <span class="badge rounded-pill bg-light text-dark">0</span>
-                    </div>
-                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input">
-                        <label class="custom-control-label">L</label>
-                        <span class="badge rounded-pill bg-light text-dark">0</span>
-                    </div>
-                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                        <input type="checkbox" class="custom-control-input">
-                        <label class="custom-control-label">XL</label>
-                        <span class="badge rounded-pill bg-light text-dark">0</span>
-                    </div>
+
+                    <button type="submit" class="btn btn-primary">Filter</button>
                 </form>
             </div>
             <!-- Size End -->

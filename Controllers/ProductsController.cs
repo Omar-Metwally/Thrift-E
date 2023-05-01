@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Thrift_E.Controllers
 {
@@ -191,22 +192,21 @@ namespace Thrift_E.Controllers
 
         }
 
-        public IActionResult StoreFilter(double? Low, double? High, int? CategoryId)
+        public IActionResult StoreFilter(double? lowPrice, double? highPrice, int? categoryId)
         {
             var productsQuery = _context.Products
                 .Include(p => p.Category)
                 .Include(p => p.MeasureOfScale);
 
-            if (Low != null && High != null)
+            if (lowPrice != null && highPrice != null)
             {
-                productsQuery = productsQuery.Where(p => p.Price >= Low.Value && p.Price <= High.Value)
+                productsQuery = _context.Products.Where(p => p.Price >= lowPrice.Value && p.Price <= highPrice.Value)
                     .Include(p => p.MeasureOfScale);
             }
 
-            if (CategoryId != null)
+            if (categoryId != null)
             {
-                productsQuery = productsQuery.Where(p => p.CategoryId == CategoryId)
-                    .Include(p => p.MeasureOfScale);
+                productsQuery = productsQuery.Where(p => p.CategoryId == categoryId).Include(p => p.MeasureOfScale); ;
             }
 
             var products = productsQuery.OrderBy(p => p.Price)
@@ -214,11 +214,12 @@ namespace Thrift_E.Controllers
                 {
                     ProductId = p.ProductId,
                     ProductName = p.ProductName,
+                    CategoryId = p.CategoryId,
                     Price = p.Price,
                     Image1 = p.Image1,
                     CategoryName = p.Category.CategoryName,
                     MeasureOfScaleName = p.MeasureOfScale.MeasureOfScale,
-                                        Description = p.Description,
+                    Description = p.Description,
                 })
                 .ToList();
 
