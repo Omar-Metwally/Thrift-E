@@ -1,7 +1,6 @@
 ﻿@model List<ProductViewModel>
 @{
     ViewData["Title"] = "Store";
-    Layout = "../Shared/_Layout.cshtml";
 }
 <!-- Shop Start -->
 <div class="container-fluid pt-5">
@@ -40,6 +39,14 @@
                         </div>
                         <div class="card-body">
                             <select class="form-control" name="categoryId" asp-items="@ViewBag.Categories"><option value="">Select</option>     </select>
+                        </div>
+                    </div>
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            Filter by brand
+                        </div>
+                        <div class="card-body">
+                            <select class="form-control" name="brandId" asp-items="@ViewBag.Brands"><option value="">Select</option>     </select>
                         </div>
                     </div>
 

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
+using System.Drawing;
 using System.Linq;
 
 namespace Thrift_E.Controllers
@@ -70,6 +71,7 @@ namespace Thrift_E.Controllers
         [Authorize(policy: "MustBeAdmin")]
         public IActionResult Upsert(int? id)
         {
+            ViewBag.Brands = new SelectList(_context.Brands.ToList(), "BrandId", "BrandName");
             ViewBag.Categories = new SelectList(_context.Categorys.ToList(), "CategoryId", "CategoryName");
             ViewBag.MeasureOfScales = new SelectList(_context.MeasuresOfScales.ToList(), "MeasureOfScaleId", "MeasureOfScale");
             var entity = _unitOfWork.Products.Upsert(id);
@@ -173,16 +175,21 @@ namespace Thrift_E.Controllers
         {
             ViewBag.Categories = new SelectList(_context.Categorys.ToList(), "CategoryId", "CategoryName");
             ViewBag.MeasureOfScales = new SelectList(_context.MeasuresOfScales.ToList(), "MeasureOfScaleId", "MeasureOfScale");
+            ViewBag.Brands = new SelectList(_context.Brands.ToList(), "BrandId", "BrandName");
 
             var products = _context.Products
                 .Include(p => p.Category)
                 .Include(p => p.MeasureOfScale)
+                .Include(p => p.Brand)
                 .OrderBy(p => p.Price)
                 .Select(p => new ProductViewModel
                 {
                     ProductId = p.ProductId,
                     ProductName = p.ProductName,
                     Price = p.Price,
+                    Size = p.Size,
+                    BrandName = p.Brand.BrandName,
+                    BrandId = p.BrandId,
                     Image1 = p.Image1,
                     CategoryName = p.Category.CategoryName,
                     MeasureOfScaleName = p.MeasureOfScale.MeasureOfScale,
@@ -194,24 +201,38 @@ namespace Thrift_E.Controllers
 
         }
 
-        public IActionResult StoreFilter(double? lowPrice, double? highPrice, int? categoryId)
+        public IActionResult StoreFilter(double? lowPrice, double? highPrice, int? categoryId, int? brandId, string? size)
         {
             ViewBag.Categories = new SelectList(_context.Categorys.ToList(), "CategoryId", "CategoryName");
             ViewBag.MeasureOfScales = new SelectList(_context.MeasuresOfScales.ToList(), "MeasureOfScaleId", "MeasureOfScale");
+            ViewBag.Brands = new SelectList(_context.MeasuresOfScales.ToList(), "BrandId", "BrandName");
 
             var productsQuery = _context.Products
                 .Include(p => p.Category)
-                .Include(p => p.MeasureOfScale);
+                .Include(p => p.MeasureOfScale)
+                .Include(p => p.Brand);
+
 
             if (lowPrice != null && highPrice != null)
             {
                 productsQuery = _context.Products.Where(p => p.Price >= lowPrice.Value && p.Price <= highPrice.Value)
-                    .Include(p => p.MeasureOfScale);
+                    .Include(p => p.MeasureOfScale)
+                    .Include(p => p.Brand);
             }
 
             if (categoryId != null)
             {
-                productsQuery = productsQuery.Where(p => p.CategoryId == categoryId).Include(p => p.MeasureOfScale); ;
+                productsQuery = productsQuery.Where(p => p.CategoryId == categoryId).Include(p => p.MeasureOfScale).Include(p => p.Brand);
+            }
+
+            if (brandId != null)
+            {
+                productsQuery = productsQuery.Where(p => p.BrandId == brandId).Include(p => p.MeasureOfScale).Include(p => p.Brand);
+            }
+
+            if (size != null)
+            {
+                productsQuery = productsQuery.Where(p => p.Size == size).Include(p => p.MeasureOfScale).Include(p => p.Brand);
             }
 
             var products = productsQuery.OrderBy(p => p.Price)
@@ -220,6 +241,9 @@ namespace Thrift_E.Controllers
                     ProductId = p.ProductId,
                     ProductName = p.ProductName,
                     Price = p.Price,
+                    Size = p.Size,
+                    BrandName = p.Brand.BrandName,
+                    BrandId = p.BrandId,
                     Image1 = p.Image1,
                     CategoryName = p.Category.CategoryName,
                     MeasureOfScaleName = p.MeasureOfScale.MeasureOfScale,
@@ -235,6 +259,7 @@ namespace Thrift_E.Controllers
             var products = _context.Products
                 .Include(p => p.Category)
                 .Include(p => p.MeasureOfScale)
+                .Include(p => p.Brand)
                 .OrderBy(p => p.Price)
                 .Where(p => p.ProductName.Contains(word))
                 .Select(p => new ProductViewModel
@@ -242,6 +267,9 @@ namespace Thrift_E.Controllers
                     ProductId = p.ProductId,
                     ProductName = p.ProductName,
                     Price = p.Price,
+                    Size = p.Size,
+                    BrandName = p.Brand.BrandName,
+                    BrandId = p.BrandId,
                     Image1 = p.Image1,
                     CategoryName = p.Category.CategoryName,
                     MeasureOfScaleName = p.MeasureOfScale.MeasureOfScale,

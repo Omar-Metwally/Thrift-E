@@ -29,9 +29,7 @@ namespace Thrift_E.Controllers
             var person = _context.Customers.FirstOrDefault(x => x.Cookie == myCookieValue);
 
             List<Cart> carts = _context.Carts.Where(x => x.CustomerId == person.CustomerId).ToList();
-            int LastId = _context.Orders.OrderByDescending(x => x.OrderId).FirstOrDefault().OrderId;
             Order order = new Order();
-            order.OrderId = LastId + 1;
             order.CustomerId = (int)person.CustomerId;
             _context.Orders.Add(order);
 
@@ -92,6 +90,50 @@ namespace Thrift_E.Controllers
 
             }).ToList();
             return View(products);
+        }
+        public IActionResult Confirm()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Confirm1(string Area, string Streat, string House)
+        {
+            string myCookieValue = HttpContext.Request.Cookies["MyCookie"];
+            var person = _context.Customers.FirstOrDefault(x => x.Cookie == myCookieValue);
+
+            int LastId = _context.Orders.OrderByDescending(x => x.OrderId).FirstOrDefault().OrderId;
+            List<Cart> carts = _context.Carts.Where(x => x.CustomerId == person.CustomerId).ToList();
+            Order order = new Order();
+            order.CustomerId = (int)person.CustomerId;
+            order.OrderId = LastId + 1;
+            if (Area == null) order.Area = person.Area;
+            if (Streat == null) order.Streat = person.Streat;
+            if (House == null) order.House = person.House;
+            order.OrderStatus = "Being Processed";
+            _context.Orders.Add(order);
+
+            foreach (Cart Item in carts)
+            {
+                Product product = _context.Products.FirstOrDefault(x => x.ProductId == Item.ProductId);
+                if (product.InstockQty >= Item.Qty)
+                {
+                    OrderdProduct OrderdProduct = new OrderdProduct();
+                    OrderdProduct.OrderId = order.OrderId;
+                    OrderdProduct.ProductId = Item.ProductId;
+                    OrderdProduct.Qty = (int)Item.Qty;
+                    OrderdProduct.Total = (product.Price * OrderdProduct.Qty);
+                    product.InstockQty -= OrderdProduct.Qty;
+                    _context.OrderdProducts.Add(OrderdProduct);
+                    _context.Carts.Remove(Item);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Carts");
+                }
+
+            }
+            _context.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }

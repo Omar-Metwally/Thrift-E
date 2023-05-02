@@ -52,6 +52,11 @@ else
                             <label for="SKULabel" class="form-label">Product Size Scale</label>
                             <select asp-for="MeasureOfScaleId" class="form-control" asp-items="@ViewBag.MeasureOfScales"></select>
                         </div>
+                        <div class="mb-4">
+                            <label for="SKULabel" class="form-label">Product Size</label>
+
+                            <input class="form-control" asp-for="Size" placeholder="Enter Product Size">
+                        </div>
                         <!-- End Form -->
                     </div>
                     <!-- End Col -->
@@ -69,6 +74,10 @@ else
                         <div class="mb-4">
                             <label for="SKULabel" class="form-label">Product Category</label>
                             <select asp-for="CategoryId" class="form-control" asp-items="@ViewBag.Categories"></select>
+                        </div>
+                        <div class="mb-4">
+                            <label for="SKULabel" class="form-label">Product Brand</label>
+                            <select asp-for="BrandId" class="form-control" asp-items="@ViewBag.Brands"></select>
                         </div>
                     <!-- End Col -->
                     </div>
