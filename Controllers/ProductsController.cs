@@ -251,5 +251,11 @@ namespace Thrift_E.Controllers
 
             return View("Store", products);
         }
+        [Authorize(policy: "MustBeAdmin")]
+        public IActionResult ReOrder()
+        {
+            ViewBag.Product = new SelectList(_context.Products.ToList(), "ProductId", "ProductName");
+            return View();
+        }
     }
 }
