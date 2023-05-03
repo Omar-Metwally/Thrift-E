@@ -201,11 +201,11 @@ namespace Thrift_E.Controllers
 
         }
 
-        public IActionResult StoreFilter(double? lowPrice, double? highPrice, int? categoryId, int? brandId, string? size)
+        public IActionResult StoreFilter(double? lowPrice, double? highPrice, int? categoryId, int brandId, string? size)
         {
             ViewBag.Categories = new SelectList(_context.Categorys.ToList(), "CategoryId", "CategoryName");
             ViewBag.MeasureOfScales = new SelectList(_context.MeasuresOfScales.ToList(), "MeasureOfScaleId", "MeasureOfScale");
-            ViewBag.Brands = new SelectList(_context.MeasuresOfScales.ToList(), "BrandId", "BrandName");
+            ViewBag.Brands = new SelectList(_context.Brands.ToList(), "BrandId", "BrandName");
 
             var productsQuery = _context.Products
                 .Include(p => p.Category)
@@ -282,7 +282,7 @@ namespace Thrift_E.Controllers
         [Authorize(policy: "MustBeAdmin")]
         public IActionResult ReOrder()
         {
-            ViewBag.Product = new SelectList(_context.Products.ToList(), "ProductId", "ProductName");
+            ViewBag.Products = new SelectList(_context.Products.ToList(), "ProductId", "ProductName");
             return View();
         }
     }
