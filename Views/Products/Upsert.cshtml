@@ -55,7 +55,15 @@ else
                         <div class="mb-4">
                             <label for="SKULabel" class="form-label">Product Size</label>
 
-                            <input class="form-control" asp-for="Size" placeholder="Enter Product Size">
+                                                        <select class="form-control" name="size" asp-for="Size">
+                                <option value="">Select</option>
+                                <option value="S">S</option>
+                                <option value="M">M</option>
+                                <option value="L">L</option>
+                                <option value="XL">XL</option>
+                                <option value="XXL">XXL</option>
+                                <option value="XXXL">XXXL</option>
+                                </select>
                         </div>
                         <!-- End Form -->
                     </div>

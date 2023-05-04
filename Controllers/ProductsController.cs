@@ -158,6 +158,8 @@ namespace Thrift_E.Controllers
                     Price = p.Price,
                     NewOrUsed = p.NewOrUsed,
                     SignupDate = p.SignupDate,
+                    Size = p.Size,
+                    BrandName = p.Brand.BrandName,
                     Image1 = p.Image1,
                     Image2 = p.Image2,
                     Image3 = p.Image3,
@@ -201,7 +203,7 @@ namespace Thrift_E.Controllers
 
         }
 
-        public IActionResult StoreFilter(double? lowPrice, double? highPrice, int? categoryId, int brandId, string? size)
+        public IActionResult StoreFilter(double? lowPrice, double? highPrice, int? categoryId, int? brandId, string? size, bool? New)
         {
             ViewBag.Categories = new SelectList(_context.Categorys.ToList(), "CategoryId", "CategoryName");
             ViewBag.MeasureOfScales = new SelectList(_context.MeasuresOfScales.ToList(), "MeasureOfScaleId", "MeasureOfScale");
@@ -233,6 +235,10 @@ namespace Thrift_E.Controllers
             if (size != null)
             {
                 productsQuery = productsQuery.Where(p => p.Size == size).Include(p => p.MeasureOfScale).Include(p => p.Brand);
+            }
+            if (New != null)
+            {
+                productsQuery = productsQuery.Where(p => p.NewOrUsed == New).Include(p => p.MeasureOfScale).Include(p => p.Brand);
             }
 
             var products = productsQuery.OrderBy(p => p.Price)

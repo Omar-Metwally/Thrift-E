@@ -107,8 +107,11 @@ namespace Thrift_E.Controllers
             order.CustomerId = (int)person.CustomerId;
             order.OrderId = LastId + 1;
             if (Area == null) order.Area = person.Area;
+            else order.Area = Area;
             if (Streat == null) order.Streat = person.Streat;
+            else order.Streat = Streat;
             if (House == null) order.House = person.House;
+            else order.House = House;
             order.OrderStatus = "Being Processed";
             _context.Orders.Add(order);
 

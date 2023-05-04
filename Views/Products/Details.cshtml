@@ -46,9 +46,12 @@
                     <div class="mt-2 pr-3 content">
                         @Html.Raw(Model.Description)
                     </div>
+                    <h6 class="p-1">Brand: @Html.DisplayFor(model => model.BrandName)</h6>
                     <h5 class="p-1">@Html.DisplayFor(model => model.Price) EGP</h5>
                     <h6 class="p-1">Category: @Html.DisplayFor(model => model.CategoryName)</h6>
                     <h6 class="p-1">Scale of Size: @Html.DisplayFor(model => model.MeasureOfScaleName)</h6>
+                    <h6 class="p-1">Size: @Html.DisplayFor(model => model.Size)</h6>
+                    
                     @if (User.Identity.Name == "Admin")
                     {
                         <h6 class="p-1">Date Of Purchase: @Html.DisplayFor(model => model.SignupDate)</h6>

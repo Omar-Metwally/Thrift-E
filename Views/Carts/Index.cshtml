@@ -86,13 +86,25 @@
                                             Standard Delivery 20 EGP
                                     </div>
 
-                                    <h5 class="text-uppercase mb-3">Give code</h5>
+                                        <h5 class="text-uppercase mb-3">Delivery Location</h5>
 
-                                    <div class="mb-5">
+                                    <div class="mb-1">
                                         <div class="form-outline">
-                                            <input type="text" id="form3Examplea2" class="form-control form-control-lg" />
-                                            <label class="form-label" for="form3Examplea2">Enter your code</label>
+                                                <input type="text" id="Area" name="Area" class="form-control form-control-lg" placeholder="Enter Your Area" required/>
+                                                <label class="form-label" for="Area">Area</label>
                                         </div>
+                                    </div>
+                                    <div class="mb-1">
+                                        <div class="form-outline">
+                                                <input type="text" id="Streat" name="Streat" class="form-control form-control-lg" placeholder="Enter Your Street" required />
+                                                <label class="form-label" for="Streat">Street</label>
+                                        </div>
+                                    </div>
+                                    <div class="mb-1">
+                                            <div class="form-outline">
+                                                <input type="text" id="House" name="House" class="form-control form-control-lg" placeholder="Enter Your House Num" required />
+                                                <label class="form-label" for="House">House</label>
+                                            </div>
                                     </div>
 
                                     <hr class="my-4">
@@ -102,7 +114,7 @@
                                             <h5>@(totalAmount + 20) EGP</h5>
                                     </div>
                                         <input type="submit" value="Order" class="btn btn-dark btn-block btn-lg"
-                                               data-mdb-ripple-color="dark" asp-controller="Orders" asp-action="Confirm" />
+                                               data-mdb-ripple-color="dark" asp-controller="Orders" asp-action="Confirm1" />
                                 </div>
                             </div>
                         </div>

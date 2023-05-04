@@ -39,7 +39,7 @@ namespace Thrift_E.Controllers
         }
 
 
-        public IActionResult Privacy()
+        public IActionResult AboutUs()
         {
             return View();
         }
