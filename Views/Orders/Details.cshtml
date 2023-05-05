@@ -6,42 +6,44 @@
 <section class="h-100 gradient-custom">
     <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-lg-10 col-xl-8">
+            <div class="col-lg-14 col-xl-10">
                 <div class="card" style="border-radius: 10px;">
-                    <div class="card-header px-4 py-5">
+                    <div class="card-header px-4 py-5 d-flex justify-content-lg-between">
                         <h5 class="text-muted mb-0">Thanks for your Order, <span style="color: darkslategray;">@Model.First().CustomerName</span>!</h5>
+                        <h5 class="">Order Status: @Model.First().OrderStatus</h5>
                     </div>
                     <div class="card-body p-4">
                         <div class="d-flex justify-content-between align-items-center mb-4">
                             <p class="lead fw-normal mb-0" style="color: darkslategray;">Receipt</p>
                         </div>
-                        @foreach (var item in Model){
+                        @foreach (var item in Model)
+                        {
                             totalAmount += @item.Total;
-                        <div class="card shadow-0 border mb-4">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <img src="@item.Image1"
-                                             class="img-fluid" alt="Phone">
-                                    </div>
-                                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                            <div class="card shadow-3 border mb-2">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <img src="@item.Image1"
+                                                 class="img-fluid" alt="Phone">
+                                        </div>
+                                        <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
                                             <p class="text-muted mb-0">@item.ProductName</p>
-                                    </div>
-                                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                            <p class="text-muted mb-0 small">@item.CategoryName</p>
-                                    </div>
-                                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                            <p class="text-muted mb-0 small">@Html.Raw(item.Description)</p>
-                                    </div>
-                                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                        <p class="text-muted mb-0 small">@item.Qty Unit</p>
-                                    </div>
-                                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                                        </div>
+                                        <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                                            <p class="text-muted mb-0 small">@item.Brand</p>
+                                        </div>
+                                        <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                                            <p class="text-muted mb-0 small">@item.MeasureOfScaleName: @item.Size</p>
+                                        </div>
+                                        <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                                            <p class="text-muted mb-0 small">@item.Qty Unit</p>
+                                        </div>
+                                        <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
                                             <p class="text-muted mb-0 small">@item.Total EGP</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         }
                         <div class="d-flex justify-content-between mb-1">
                             <p class="fw-bold mb-0">Order Date: @Model.First().OrderDate</p>

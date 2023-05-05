@@ -28,6 +28,7 @@ namespace Thrift_E.Controllers
                 .Select(p => new ProductViewModel
                 {
                     ProductId = p.ProductId,
+                    ProductName = p.ProductName,
                     Price = p.Price,
                     Image1 = p.Image1,
                     CategoryName = p.Category.CategoryName,

@@ -6,6 +6,7 @@
     ViewData["Title"] = "Shopping Cart";
 
 }
+
 <form method="post">
     <section class="h-100 h-custom">
     <div class="container py-5 h-100">
@@ -75,9 +76,8 @@
                                     <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
                                     <hr class="my-4">
 
-                                    <div class="d-flex justify-content-between mb-4">
-                                        <h5 class="text-uppercase">@items Items</h5>
-                                            <h5>@totalAmount EGP</h5>
+                                    <div class="d-flex justif   y-content-between mb-4">
+                                            <h5 class="text-uppercase">@items Items @totalAmount EGP</h5>
                                     </div>
 
                                     <h5 class="text-uppercase mb-3">Shipping</h5>
@@ -90,19 +90,19 @@
 
                                     <div class="mb-1">
                                         <div class="form-outline">
-                                                <input type="text" id="Area" name="Area" class="form-control form-control-lg" placeholder="Enter Your Area" required/>
+                                                <input type="text" id="Area" name="Area" class="form-control form-control-lg" placeholder="Enter Your Area" />
                                                 <label class="form-label" for="Area">Area</label>
                                         </div>
                                     </div>
                                     <div class="mb-1">
                                         <div class="form-outline">
-                                                <input type="text" id="Streat" name="Streat" class="form-control form-control-lg" placeholder="Enter Your Street" required />
+                                                <input type="text" id="Streat" name="Streat" class="form-control form-control-lg" placeholder="Enter Your Street"  />
                                                 <label class="form-label" for="Streat">Street</label>
                                         </div>
                                     </div>
                                     <div class="mb-1">
                                             <div class="form-outline">
-                                                <input type="text" id="House" name="House" class="form-control form-control-lg" placeholder="Enter Your House Num" required />
+                                                <input type="text" id="House" name="House" class="form-control form-control-lg" placeholder="Enter Your House Num"  />
                                                 <label class="form-label" for="House">House</label>
                                             </div>
                                     </div>
@@ -113,7 +113,7 @@
                                         <h5 class="text-uppercase">Total price</h5>
                                             <h5>@(totalAmount + 20) EGP</h5>
                                     </div>
-                                        <input type="submit" value="Order" class="btn btn-dark btn-block btn-lg"
+                                        <input type="submit" value="Order" class="btn btn-dark btn-block btn-lg" id="register"
                                                data-mdb-ripple-color="dark" asp-controller="Orders" asp-action="Confirm1" />
                                 </div>
                             </div>
@@ -125,3 +125,30 @@
     </div>
 </section>
 </form>
+<script>
+    let inputs = document.querySelectorAll('input[type="text"]');
+    let register = document.querySelector('#register');
+
+    // disable the submit button initially
+    register.disabled = true;
+
+    // add event listeners to each input field
+    inputs.forEach(input => {
+        input.addEventListener('input', () => {
+            // check if all other inputs are filled
+            let allFilled = true;
+            for (let i = 0; i < inputs.length; i++) {
+                if (!inputs[i].value) {
+                    allFilled = false;
+                    break;
+                }
+            }
+
+            // enable or disable the submit button based on whether all other inputs are filled
+            register.disabled = !allFilled;
+        });
+    });
+</script>
+@section Scripts {
+
+}

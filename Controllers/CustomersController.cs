@@ -25,14 +25,6 @@ namespace Thrift_E.Controllers
 
         }
         [Authorize(policy: "MustBeAdmin")]
-        // GET: Customers/Details/5
-        /*public IActionResult Details(int? id)
-        {
-            var entity = _unitOfWork.Customers.Upsert(id);
-            return View(entity);
-            
-        }*/
-        [Authorize(policy: "MustBeAdmin")]
         public IActionResult Delete(int? id)
         {
             _unitOfWork.Customers.Delete(id);

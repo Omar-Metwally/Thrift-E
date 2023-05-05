@@ -101,6 +101,16 @@
                                 </div>
                             </div>
                         </form>
+                        <form method="post">
+                        <div class="dropdown ml-4">
+                            <select class="form-control" name="size">
+                                <option value="">Order By</option>
+                                    <option value="@Model.OrderBy(x => x.ProductName)">Product Name</option>
+                                    <option value="@Model.OrderBy(x => x.MeasureOfScaleId)">Scale</option>
+                                    <option value="@Model.OrderBy(x => x.Price)">Price</option>
+                            </select>
+                        </div>
+                        </form>
                     </div>
                 </div>
                 @foreach (var item in Model)
