@@ -25,14 +25,20 @@ namespace Thrift_E.Controllers
             var products = _context.Products
                 .Include(p => p.Category)
                 .Include(p => p.MeasureOfScale)
+                .Include(p => p.Brand)
+                .OrderByDescending(p => p.SignupDate)
                 .Select(p => new ProductViewModel
                 {
                     ProductId = p.ProductId,
                     ProductName = p.ProductName,
                     Price = p.Price,
+                    Size = p.Size,
+                    BrandName = p.Brand.BrandName,
+                    BrandId = p.BrandId,
                     Image1 = p.Image1,
                     CategoryName = p.Category.CategoryName,
-                    MeasureOfScaleName = p.MeasureOfScale.MeasureOfScale
+                    MeasureOfScaleName = p.MeasureOfScale.MeasureOfScale,
+                    Description = p.Description,
                 })
                 .ToList();
 

@@ -137,7 +137,7 @@ namespace Thrift_E.Controllers
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }
-            else 
+            else
             {
                 return RedirectToAction("Index", "Carts");
             }

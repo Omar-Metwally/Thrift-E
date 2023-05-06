@@ -17,15 +17,22 @@
             @foreach (var item in Model)
             {
                 <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
-                    <div class="card product-item border-0 mb-4">
+                    <div class="card product-item border-0 mb-1">
                         <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
                             <img class="img-fluid w-100" src="@item.Image1" alt="">
                         </div>
-                        <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                            <h6 class="text-truncate">@item.ProductName</h6>
-                            <h6 class="text-truncate">@Html.Raw(item.Description)</h6>
-                            <div class="d-flex justify-content-center">
-                                <h6>@item.Price EGP</h6>
+                        <div class="card-body border-left border-right text-start p-0 pt-1">
+                            <div class="row ms-2 me-2 d-flex align-content-lg-start">
+                                <h6 class="text-truncate col">@item.ProductName</h6>
+                                <h6 class="text-truncate col">@item.BrandName</h6>
+                            </div>
+                            <div class="row ms-2 me-2 d-flex align-content-lg-start">
+                                <h6 class="text-truncate col">@item.MeasureOfScaleName: </h6>
+                                <h6 class="text-truncate col">@item.Size</h6>
+                            </div>
+                            <div class="row ms-2 me-2 d-flex align-content-lg-start">
+                                <h6 class="text-truncate col">Price: </h6>
+                                <h6 class="text-truncate col">@item.Price</h6>
                             </div>
                         </div>
                         <div class="card-footer d-flex justify-content-between bg-light border">

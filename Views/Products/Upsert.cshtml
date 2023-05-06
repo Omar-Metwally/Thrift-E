@@ -7,7 +7,7 @@
 else
 {
     ViewData["Title"] = "Update";
-    <h2 class ="m-3">Update Product</h2>
+    <h2 class="m-3">Update Product</h2>
 }
 
 
@@ -18,6 +18,7 @@ else
     <input type="hidden" asp-for="Image3" />
     <input type="hidden" asp-for="Image4" />
     <div class="col-lg-8 mb-3 mb-lg-0">
+
         <!-- Card -->
         <div class="card mb-3 mb-lg-5">
             <!-- Header -->
@@ -40,7 +41,7 @@ else
                         <!-- Form -->
                         <div class="mb-4">
                             <label for="SKULabel" class="form-label">Bought QTY</label>
-                            
+
                             <input type="number" class="form-control" asp-for="InstockQty" placeholder="Enter Bought QTY">
                         </div>
                         <div class="mb-4">
@@ -55,7 +56,7 @@ else
                         <div class="mb-4">
                             <label for="SKULabel" class="form-label">Product Size</label>
 
-                                                        <select class="form-control" name="size" asp-for="Size">
+                            <select class="form-control" name="size" asp-for="Size" id="size">
                                 <option value="">Select</option>
                                 <option value="S">S</option>
                                 <option value="M">M</option>
@@ -63,7 +64,7 @@ else
                                 <option value="XL">XL</option>
                                 <option value="XXL">XXL</option>
                                 <option value="XXXL">XXXL</option>
-                                </select>
+                            </select>
                         </div>
                         <!-- End Form -->
                     </div>
@@ -87,15 +88,15 @@ else
                             <label for="SKULabel" class="form-label">Product Brand</label>
                             <select asp-for="BrandId" class="form-control" asp-items="@ViewBag.Brands"></select>
                         </div>
-                    <!-- End Col -->
+                        <!-- End Col -->
                     </div>
-                <!-- End Row -->
+                    <!-- End Row -->
                 </div>
 
                 <div class="mb-4">
-                        <label for="productNameLabel" class="form-label">Product Description</label>
+                    <label for="productNameLabel" class="form-label">Product Description</label>
 
-                        <textarea asp-for="Description" class="form-control"></textarea>
+                    <textarea asp-for="Description" class="form-control"></textarea>
                 </div>
             </div>
             <!-- Body -->
@@ -126,13 +127,13 @@ else
                 <!-- Dropzone -->
                 <div id="attachFilesNewProjectLabel" class="js-dropzone dz-dropzone dz-dropzone-card dz-clickable">
                     <div class="dz-message">
-                            <label class="form-label" for="customFile">Image 1</label>
+                        <label class="form-label" for="customFile">Image 1</label>
                         <input input type="file" accept="image/*" class="form-control" name="file1" />
-                            <label class="form-label" for="customFile">Image 2</label>
+                        <label class="form-label" for="customFile">Image 2</label>
                         <input input type="file" accept="image/*" class="form-control" name="file2" />
-                            <label class="form-label" for="customFile">Image 3</label>
+                        <label class="form-label" for="customFile">Image 3</label>
                         <input input type="file" accept="image/*" class="form-control" name="file3" />
-                            <label class="form-label" for="customFile">Image 4</label>
+                        <label class="form-label" for="customFile">Image 4</label>
                         <input input type="file" accept="image/*" class="form-control" name="file4" />
                     </div>
                 </div>

@@ -6,10 +6,10 @@
 <div class="container-fluid pt-5">
     <div class="row px-xl-5">
         <!-- Shop Sidebar Start -->
-        <div class="col-lg-3 col-md-10">
+        <div class="col-xl-3">
             <!-- Price Start -->
-            <div class="border-bottom mb-4 pb-4">
-                <h5 class="font-weight-semi-bold mb-4">Filter by price</h5>
+            <div class="mb-4 pb-4 ">
+                <h5 class="font-weight-semi-bold mb-4">Filter</h5>
                 <form asp-controller="Products" asp-action="StoreFilter" method="get">
                     <div class="card mb-3">
                         <div class="card-header">
@@ -77,14 +77,10 @@
                             </select>
                         </div>
                     </div>
-
-
                     <button type="submit" class="btn btn-primary">Filter</button>
                 </form>
             </div>
-
         </div>
-
         <!-- Shop Product Start -->
         <div class="col-lg-9 col-md-12">
             <div class="row pb-3">
@@ -102,7 +98,7 @@
                             </div>
                         </form>
                         <form method="post">
-                        <div class="dropdown ml-4">
+                        <div class="dropdown ms-4">
                             <select class="form-control" name="size">
                                 <option value="">Order By</option>
                                     <option value="@Model.OrderBy(x => x.ProductName)">Product Name</option>
@@ -120,18 +116,18 @@
                         <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
                             <img class="img-fluid w-100" src="@item.Image1" alt="">
                         </div>
-                        <div class="card-body border-left border-right text-center p-0 pt-1">
-                                <div class="d-flex justify-content-around bd-highlight pr-2 pl-2">
-                                    <h6 class="text-truncate">@item.ProductName</h6>
-                                    <h6 class="text-truncate">@item.BrandName</h6>
+                        <div class="card-body border-left border-right text-start p-0 pt-1">
+                                <div class="row ms-2 me-2 d-flex align-content-lg-start">
+                                    <h6 class="text-truncate col">@item.ProductName</h6>
+                                    <h6 class="text-truncate col">@item.BrandName</h6>
                                 </div>
-                                <div class="d-flex justify-content-start bd-highlight pr-2 pl-2">
-                                    <h6 class="text-truncate">@item.MeasureOfScaleName:  </h6>
-                                    <h6 class="text-truncate">@item.Size</h6>
+                                <div class="row ms-2 me-2 d-flex align-content-lg-start">
+                                    <h6 class="text-truncate col">@item.MeasureOfScaleName: </h6>
+                                    <h6 class="text-truncate col">@item.Size</h6>
                                 </div>
-                                <div class="d-flex justify-content-around bd-highlight pr-2 pl-2">
-                                    <h6 class="">Price</h6>
-                                    <h6 class="">@item.Price EGP</h6>
+                                <div class="row ms-2 me-2 d-flex align-content-lg-start">
+                                    <h6 class="text-truncate col">Price: </h6>
+                                    <h6 class="text-truncate col">@item.Price</h6>
                                 </div>
                         </div>
                         <div class="card-footer d-flex justify-content-between bg-light border">

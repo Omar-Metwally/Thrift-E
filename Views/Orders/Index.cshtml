@@ -6,55 +6,60 @@
 }
 
 <div class="container">
-	<div class="table-wrapper">
-		<div class="card shadow-3 border-dark p-2 m-1">
-			<div class="card-body">
-				<div class="row">
-					<div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-						<p class="text-black mb-0">Order ID</p>
-					</div>
-					<div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-						<p class="text-black mb-0">Full Name</p>
-					</div>
-					<div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-						<p class="text-black mb-0 small">Location</p>
-					</div>
-					<div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-						<p class="text-black mb-0 small"><span class="status text-success"></span>OrderStatus</p>
-					</div>
-					<div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-						<div class="btn-group" role="group">
-						</div>
-					</div>
-				</div>
-
-		</div>
+    <div class="table-wrapper">
+        <div class="card shadow-3 border-dark p-2 m-1">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                        <p class="text-black mb-0">Order ID</p>
+                    </div>
+                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                        <p class="text-black mb-0">Full Name</p>
+                    </div>
+                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                        <p class="text-black mb-0 small">Location</p>
+                    </div>
+                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                        <p class="text-black mb-0 small"><span class="status text-success"></span>OrderStatus</p>
+                    </div>
+                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                        <p class="text-black mb-0 small">Order Date</p>
+                    </div>
+                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                        <div class="btn-group" role="group">
+                        </div>
+                    </div>
+                </div>
+            </div>
             @foreach (var item in Model)
             {
-					<div class="card shadow-3 border mb-2">
-						<div class="card-body">
-							<div class="row">
-								<div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-									<p class="text-muted mb-0">@item.OrderId</p>
-								</div>
-								<div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-									<p class="text-muted mb-0">@item.Customer.FirstName @item.Customer.MiddleName @item.Customer.LastName</p>
-								</div>
-								<div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-									<p class="text-muted mb-0 small">@item.Area / @item.Streat / @item.House</p>
-								</div>
-								<div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-									<p class="text-muted mb-0 small"><span class="status text-success">&bull;</span> @item.OrderStatus</p>
-								</div>
-								<div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-									<div class="btn-group" role="group">
-										<a class="btn btn-secondary me-1" href="@Url.Action("Details", new { OrderId = item.OrderId })">Details</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-			}
-		</div>
-	</div>
+                <div class="card shadow-3 border mb-2">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                                <p class="text-muted mb-0">@item.OrderId</p>
+                            </div>
+                            <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                                <p class="text-muted mb-0">@item.Customer.FirstName @item.Customer.MiddleName @item.Customer.LastName</p>
+                            </div>
+                            <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                                <p class="text-muted mb-0 small">@item.Area / @item.Streat / @item.House</p>
+                            </div>
+                            <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                                <p class="text-muted mb-0 small"><span class="status text-success">&bull;</span> @item.OrderStatus</p>
+                            </div>
+                            <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                                <p class="text-muted mb-0 small">@item.OrderDate</p>
+                            </div>
+                            <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                                <div class="btn-group" role="group">
+                                    <a class="btn btn-secondary me-1" href="@Url.Action("Details", new { OrderId = item.OrderId })">Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
 </div>  

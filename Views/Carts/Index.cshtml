@@ -129,13 +129,13 @@
     let inputs = document.querySelectorAll('input[type="text"]');
     let register = document.querySelector('#register');
 
-    // disable the submit button initially
+
     register.disabled = true;
 
-    // add event listeners to each input field
+
     inputs.forEach(input => {
         input.addEventListener('input', () => {
-            // check if all other inputs are filled
+
             let allFilled = true;
             for (let i = 0; i < inputs.length; i++) {
                 if (!inputs[i].value) {
@@ -144,7 +144,7 @@
                 }
             }
 
-            // enable or disable the submit button based on whether all other inputs are filled
+
             register.disabled = !allFilled;
         });
     });
