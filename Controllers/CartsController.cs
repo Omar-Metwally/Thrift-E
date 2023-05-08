@@ -50,8 +50,8 @@ namespace Thrift_E.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-
-        public IActionResult Upsert(int ProductId)
+        [HttpPost]
+        public IActionResult Upsert(int ProductId , int? qty)
         {
             string myCookieValue = HttpContext.Request.Cookies["MyCookie"];
             var person = _context.Customers.FirstOrDefault(x => x.Cookie == myCookieValue);
@@ -64,12 +64,14 @@ namespace Thrift_E.Controllers
                 cart = new Cart();
                 cart.CustomerId = (int)person.CustomerId;
                 cart.ProductId = (int)ProductId;
-                cart.Qty = 1;
+                if(qty == null) cart.Qty = 1;
+                else cart.Qty = qty;
                 _context.Add(cart);
             }
             else
             {
-                cart.Qty = cart.Qty + 1;
+                if (qty == null) cart.Qty = 1;
+                else cart.Qty = cart.Qty + qty;
                 _context.Update(cart);
             }
             _context.SaveChanges();
@@ -77,8 +79,9 @@ namespace Thrift_E.Controllers
 
         }
 
-        [HttpPost]
+        
         [ValidateAntiForgeryToken]
+        [HttpGet]
         public IActionResult Upsert(int? id, Cart cart)
         {
             {

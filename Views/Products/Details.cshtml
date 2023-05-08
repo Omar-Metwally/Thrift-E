@@ -3,77 +3,58 @@
     ViewData["Title"] = "Product Details";
 }
 <input type="hidden" asp-for="@Model.ProductId" />
-
-<div class="container mt-5 mb-5">
-    <div class="card bg-light">
-        <div class="row g-0 bg-light">
-            <div class="col-md-6 border-end">
-                <div class="d-flex flex-column justify-content-center">
-                    <div class="card">
-                        <div id="carouselExampleControls" class="carousel slide m-1" data-bs-ride="carousel">
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <img src="@Html.DisplayFor(model => model.Image1)" class="d-block w-100 m-1" width="250" height="500" alt="">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="@Html.DisplayFor(model => model.Image2)" class="d-block w-100 m-1" width="250" height="500" alt="">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="@Html.DisplayFor(model => model.Image3)" class="d-block w-100 m-1" width="250" height="500" alt="">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="@Html.DisplayFor(model => model.Image4)" class="d-block w-100 m-1" width="250" height="500" alt="">
-                                </div>
-                            </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="false"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="false"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-                        </div>
+<form method="post" asp-controller="Carts" asp-action="Upsert" asp-route-ProductId="@Model.ProductId">
+<section class="py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="row gx-4 gx-lg-5 align-items-center">
+            <div id="carouselExampleControls" class="carousel slide col-md-6" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="@Html.DisplayFor(model => model.Image1)" class="d-block card-img-top mb-5 mb-md-0" width="250" height="500" alt="">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="@Html.DisplayFor(model => model.Image2)" class="d-block card-img-top mb-5 mb-md-0" width="250" height="500" alt="">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="@Html.DisplayFor(model => model.Image3)" class="d-block card-img-top mb-5 mb-md-0" width="250" height="500" alt="">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="@Html.DisplayFor(model => model.Image4)" class="d-block card-img-top mb-5 mb-md-0" width="250" height="500" alt="">
                     </div>
                 </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="false"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="false"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
             </div>
             <div class="col-md-6">
-                <div class="p-3 right-side">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h3>    @Html.DisplayFor(model => model.ProductName)</h3>
-
-                    </div>
-                    <div class="mt-2 pr-3 content">
-                        @Html.Raw(Model.Description)
-                    </div>
-                    <h6 class="p-1">Brand: @Html.DisplayFor(model => model.BrandName)</h6>
-                    <h5 class="p-1">@Html.DisplayFor(model => model.Price) EGP</h5>
-                    <h6 class="p-1">Category: @Html.DisplayFor(model => model.CategoryName)</h6>
-                    <h6 class="p-1">Scale of Size: @Html.DisplayFor(model => model.MeasureOfScaleName)</h6>
-                    <h6 class="p-1">Size: @Html.DisplayFor(model => model.Size)</h6>
-                    
-                    @if (User.Identity.Name == "Admin")
-                    {
-                        <h6 class="p-1">Date Of Purchase: @Html.DisplayFor(model => model.SignupDate)</h6>
-                        <h6 class="p-1">Product ID: @Html.DisplayFor(model => model.ProductId)</h6>
-
-                    }
+                <div class="small mb-1">SKU: @Model.ProductId</div>
+                <h1 class="display-5 fw-bolder">@Model.ProductName</h1>
+                <div class="fs-5">
+                    <span>@Model.CategoryName</span>
                 </div>
-                <div class="row text-center">
-                    <div class="col-md-12">
-
-                        <a class="btn btn-secondary" asp-controller="Carts" asp-action="Upsert" asp-route-ProductId="@Model.ProductId">
-                            Add to Cart
-                        </a>
+                <div class="fs-5">
+                    <span class="">@Model.MeasureOfScaleName:</span><span class="text-muted"> @Model.Size</span>
+                </div>
+                <div class="fs-5 mb-3">
+                    <span>@Model.Price EGP</span>
+                </div>
+                <p class="lead mb-3">@Html.Raw(Model.Description)</p>
+                <div class="d-flex">
+                    <input class="form-control text-center me-3" id="inputQuantity" type="number" name="qty" min="0" value="1" style="max-width: 3rem" />
+                    <input class="btn btn-outline-dark flex-shrink-0" type="submit" value="Add To Cart"/>
                         @if (User.Identity.Name == "Admin")
                         {
-                            <a class="btn btn-primary" href="@Url.Action("Upsert", new { id = Model.ProductId })">Edit</a>
-                            <a class="btn btn-danger" href="@Url.Action("Delete", new { id = Model.ProductId })">Delete</a>
+                            <a class="ms-1 btn btn-primary" href="@Url.Action("Upsert", new { id = Model.ProductId })">Edit</a>
+                            <a class="ms-1 btn btn-danger" href="@Url.Action("Delete", new { id = Model.ProductId })">Delete</a>
                         }
-                    </div>
                 </div>
             </div>
-
         </div>
     </div>
-</div>
+</section>
+</form>

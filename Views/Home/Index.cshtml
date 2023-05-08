@@ -35,10 +35,14 @@
                                 <h6 class="text-truncate col">@item.Price</h6>
                             </div>
                         </div>
+                        
                         <div class="card-footer d-flex justify-content-between bg-light border">
-                            <a class="btn btn-sm text-dark p-0" asp-controller="Products" asp-action="Details" asp-route-ProductId="@item.ProductId"><i class="bi bi-eye text-primary m-1"></i>View Detail</a>
-                            <a class="btn btn-sm text-dark p-0" asp-controller="Carts" asp-action="Upsert" asp-route-ProductId="@item.ProductId"><i class="bi bi-bag text-primary m-1"></i>Add To Cart</a>
+                            <a class="btn btn-sm text-dark p-1" asp-controller="Products" asp-action="Details" asp-route-ProductId="@item.ProductId"><i class="bi bi-eye text-primary m-1"></i>View Detail</a>
+                            <form method="post" asp-controller="Carts" asp-action="Upsert" asp-route-ProductId="@item.ProductId" asp-route-qty="1">
+                                <button type="submit" class="btn btn-sm text-dark p-1" ><i class="bi bi-bag text-primary m-1"></i>Add To Cart</button>
+                            </form>
                         </div>
+                        
                     </div>
                 </div>
             }
