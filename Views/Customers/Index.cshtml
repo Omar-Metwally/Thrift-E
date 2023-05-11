@@ -30,9 +30,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.CreateDate)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreditDebitCard)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -59,9 +56,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CreateDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreditDebitCard)
             </td>
             <td>
                 <a asp-action="Delete" asp-route-id="@item.CustomerId">Delete</a>

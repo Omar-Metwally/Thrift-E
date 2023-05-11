@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
+using System;
 
 namespace Thrift_E.Controllers
 {
@@ -20,8 +22,33 @@ namespace Thrift_E.Controllers
             _unitOfWork = unitOfWork;
             _context = context;
         }
+        [HttpGet]
+        public IActionResult pay()
+        {
+            int LastId = _context.Orders.OrderByDescending(x => x.OrderId).FirstOrDefault().OrderId;
+            List<double> Amounts = _context.OrderdProducts.Where(x => x.OrderId == LastId).Select(x => x.Total).ToList();
+            double Amount = Amounts.Sum();
+            ViewBag.Amount = Amount;
+            return View();
+        }
+        [HttpPost]
+        public IActionResult pay(string cardnum, string name, string cvc, string exp, double amount)
+        {
+            int LastId = _context.Orders.OrderByDescending(x => x.OrderId).FirstOrDefault().OrderId;
+            Payment pay = new Payment();
+            pay.OrderId = LastId;
+            pay.CardNumber = cardnum;
+            pay.CardName = name;
+            pay.ExpireDate = exp;
+            pay.Cvc = cvc;
+            pay.PaymentAmount = amount;
+            _context.Payments.Add(pay);
+            _context.SaveChanges();
+            return View();
 
-        public IActionResult Index()
+        }
+
+            public IActionResult Index()
         {
             string myCookieValue = HttpContext.Request.Cookies["MyCookie"];
             var person = _context.Customers.FirstOrDefault(x => x.Cookie == myCookieValue);

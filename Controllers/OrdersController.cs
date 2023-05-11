@@ -89,13 +89,14 @@ namespace Thrift_E.Controllers
                 Brand = c.Product.Brand.BrandName,
                 OrderDate = c.Order.OrderDate,
                 Size = c.Product.Size,
+                Visa = c.Order.PayedByVisa
 
             }).ToList();
             return View(products);
         }
 
         [HttpPost]
-        public IActionResult Confirm1(string Area, string Streat, string House)
+        public IActionResult Confirm1(string Area, string Streat, string House,bool paymethod,int visanumber)
         {
             string myCookieValue = HttpContext.Request.Cookies["MyCookie"];
             var person = _context.Customers.FirstOrDefault(x => x.Cookie == myCookieValue);
@@ -105,13 +106,12 @@ namespace Thrift_E.Controllers
             Order order = new Order();
             order.CustomerId = (int)person.CustomerId;
             order.OrderId = LastId + 1;
-            if (Area == null) order.Area = person.Area;
-            else order.Area = Area;
-            if (Streat == null) order.Streat = person.Streat;
-            else order.Streat = Streat;
-            if (House == null) order.House = person.House;
-            else order.House = House;
+            order.Area = Area;
+            order.Streat = Streat;
+            order.House = House;
+            order.PayedByVisa = paymethod;
             order.OrderStatus = "Being Processed";
+            order.OrderDate = DateTime.Now;
             _context.Orders.Add(order);
             if (carts.Count != 0)
             {
@@ -135,7 +135,14 @@ namespace Thrift_E.Controllers
                     }
                 }
                 _context.SaveChanges();
-                return RedirectToAction("Index");
+                if (paymethod == true)
+                {
+                    return RedirectToAction("pay", "Carts");
+                }
+                else
+                {
+                    return RedirectToAction("Index");
+                }
             }
             else
             {

@@ -11,7 +11,17 @@
                     <div class="card-header px-4 py-5 d-flex justify-content-lg-between">
                         <h5 class="text-muted mb-0">Thanks for your Order, <span style="color: darkslategray;">@Model.First().CustomerName</span>!</h5>
                         <h5 class="">Order Status: @Model.First().OrderStatus</h5>
+                        <h5 class="text-muted mb-0">Payment method:@if (Model.First().Visa)
+                            {
+                                <span style="color: darkslategray;">Visa</span>
+                            }
+                            else
+                            {
+                                <span style="color: darkslategray;">COD</span>
+                            }
+                        </h5>
                     </div>
+
                     <div class="card-body p-4">
                         <div class="d-flex justify-content-between align-items-center mb-4">
                             <p class="lead fw-normal mb-0" style="color: darkslategray;">Receipt</p>
