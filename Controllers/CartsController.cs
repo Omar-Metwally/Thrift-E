@@ -44,7 +44,7 @@ namespace Thrift_E.Controllers
             pay.PaymentAmount = amount;
             _context.Payments.Add(pay);
             _context.SaveChanges();
-            return View();
+            return RedirectToAction("Index", "Orders");
 
         }
 
